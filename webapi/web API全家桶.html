@@ -1,0 +1,1479 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:web API全家桶</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<blockquote>
+<p>基础概念</p>
+<p>获取元素*</p>
+<p>注册事件*</p>
+<p>操作元素属性*</p>
+</blockquote>
+<p>问题:</p>
+<p>0 js基础阶段学习的语法规则在WebAPI阶段还有效么? 有效</p>
+<p>1 API的全称是什么?有何作用？应用编程接口(Application Programing Interface),就是指一些函数，实现了某些功能，方便程序员调用。</p>
+<p>2 DOM的全称是什么?有何作用？文档对象模型  通过它可以操作页面的结构、内容、样式等等</p>
+<p>3 节点(node)和元素(element)哪一种范围更广?在js中它们的数据类型是什么? node更广，在js中它们都是对象</p>
+<p>4 getElementById的作用是？要求传入什么作实参?返回值是？根据id获取元素，要求传入id值作为实参，返回值为元素对象</p>
+<p>5 getElementsByTagName的作用是？要求传入什么作实参？返回值? 根据标签名获取元素，要求传入标签名作为实参，返回值为伪数组（动态）</p>
+<p>6 querySelector要求传入什么作实参?返回值?querySelectorAll呢?querySelector及querySelectorAll要求传入选择器作为实参，前者的返回值为 元素对象，后者返回值为伪数组</p>
+<p>7 如何获取body及html元素？ body: document.body   html:document.documentElement</p>
+<p>8 什么是事件?何为事件三要素？何为注册事件?事件处理函数是谁调用的？何时调用？事件指能被系统侦听到的行为如鼠标点击、按下键盘等等，事件三要素指事件源 事件类型及事件处理函数 事件处理函数为事件源 在事件发生时自动调用</p>
+<p>9 innerText和innerHTML有何作用？有何区别? innerText及innerHTML均可获取及设置元素内容 innerText不识别html标签及空格换行，innerHTML识别</p>
+<p>10 普通元素有哪些其他常用属性?表单元素呢?</p>
+<p>11 如何隐藏一个元素?  xxx.style.display = &#39;none&#39;</p>
+<p>12 修改元素的样式有哪些方法,请举例说明?   a 通过对style.样式属性 赋值  修改样式   b 通过修改class间接修改样式</p>
+<h2 id="-">基础概念</h2>
+<ul>
+<li>接口:能提供某种特定功能的工具，使用人员可以直接用而不需要关注内部的详细实现</li>
+<li>API Application Programming Interface  应用编程接口  通常指一些封装好可以直接用的函数</li>
+<li>Web APIs 跟web相关的，操作浏览器及网页的API,包含DOM及BOM</li>
+<li>DOM: Document Object Model 文档对象模型，整个页面(document)可被视为一颗DOM树，dom由节点(node)构成，标签被称为元素(element),是一种最重要的节点.页面中所有节点包括页面本身都是对象。</li>
+</ul>
+<h2 id="-">获取元素</h2>
+<pre><code class="lang-js">// 根据id获取
+var o = document.getElementById(&#39;xxxx&#39;) //获取到时返回对象，否则返回null
+
+// 根据标签名获取,获取到时返回伪数组，否则返回空的伪数组,根据获取到的伪数组.length&gt;0 可判断是否能获取到
+var lis = document.getElementsByTagName(&#39;li&#39;) //获取所有li
+var li1 = document.getElementsByTagName(&#39;li&#39;)[0] //获取第1个li
+var lisInOl = document.getElementsByTagName(&#39;ol&#39;)[0].getElementsByTagName(&#39;li&#39;)//获取第一个ol中的所有li
+
+// H5新增获取元素的方法
+// 根据类名 获取到时返回伪数组，否则返回空的伪数组
+var items = document.getElementsByClassName(&#39;item&#39;);
+// 根据选择器获取
+var test = document.querySelector(选择器)  //获取第一个
+var tests = document.querySelectorAll(选择器) //获取所有的
+
+// 获取body及html
+var body = document.body;
+var html = document.documentElement
+</code></pre>
+<h2 id="-">事件注册</h2>
+<pre><code class="lang-js">格式:
+事件源.on事件类型 = 事件处理函数
+事件源指各种元素
+事件类型包括click mouseover mousedown mouseup keydown keyup 等  由DOM规定好，会陆续学习到
+事件处理函数 根据要实现的交互效果 自己灵活定义
+
+// 注意:事件处理程序函数 由 系统 在事件发生时自动调用
+
+// 使用步骤:
+// 1 获取元素
+// 2 为元素的特定事件 注册处理程序
+
+var li = document.querySelector(&#39;li&#39;);
+li.onclick = function(){
+    alert(&#39;hehe&#39;)
+}
+</code></pre>
+<p>今日事件类型:</p>
+<ul>
+<li>click  鼠标左键点击</li>
+<li>focus  得到焦点</li>
+<li>blur 失去焦点</li>
+</ul>
+<h2 id="-">操作元素属性</h2>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>innerHTML</td>
+<td>获取及设置元素的内容-解析标签</td>
+<td>较常用</td>
+</tr>
+<tr>
+<td>innerText</td>
+<td>获取及设置元素的内容-不解析标签及空格换行</td>
+<td></td>
+</tr>
+<tr>
+<td>src</td>
+<td>获取及改变img/script资源</td>
+<td></td>
+</tr>
+<tr>
+<td>title</td>
+<td>获取及改变鼠标扫过 时 的提示文字</td>
+<td></td>
+</tr>
+<tr>
+<td>href</td>
+<td>获取及改变 a 的链接地址</td>
+<td></td>
+</tr>
+<tr>
+<td>type</td>
+<td>获取及改变表单元素类型</td>
+<td></td>
+</tr>
+<tr>
+<td>value</td>
+<td>获取及改变表单元素值</td>
+<td></td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>获取及设置表单元素 不可用 属性</td>
+<td></td>
+</tr>
+<tr>
+<td>checked</td>
+<td>获取及设置表单元素 checkbox radio  选中与否  属性</td>
+<td></td>
+</tr>
+<tr>
+<td>selected</td>
+<td>获取及设置表单元素 option 选中与否  属性</td>
+<td></td>
+</tr>
+<tr>
+<td>...</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="-">操作元素样式</h2>
+<ul>
+<li>直接设置元素.style.样式属性名  如  document.querySelector(&#39;div&#39;).style.color = &#39;red&#39;  注意:style通常用于设置，若用于获取则只能获取到 行内样式 </li>
+<li>通过改变元素的class 间接改变元素样式 ，可以一次性改变多个样式  如 document.querySelector(&#39;div&#39;).className = &#39;good&#39; ，会直接覆盖原来的类名，如果要保留原来的类名 只需 element.className = &#39;原来的类  新的类&#39;</li>
+</ul>
+<h2 id="-">操作</h2>
+<h3 id="-">排他思想</h3>
+<p>如果有同一组元素，我们要某个元素实现某种样式，需要用到循环的排他思想算法。 1.先清除元素的全部样式 2.再给当前元素设置样式 3.注意，顺序不能颠倒，首先干掉其他人，在设置自己的样式</p>
+<h3 id="-">排他案例，按钮换色</h3>
+<p>案例：</p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;button&gt;按钮1&lt;/button&gt;
+  &lt;button&gt;按钮2&lt;/button&gt;
+  &lt;button&gt;按钮3&lt;/button&gt;
+  &lt;button&gt;按钮4&lt;/button&gt;
+  &lt;button&gt;按钮5&lt;/button&gt;
+  &lt;script&gt;
+    // 1. 获取所有按钮元素
+    var btns = document.getElementsByTagName(&quot;button&quot;);
+    // btns得到的是伪数组  里面的每一个元素 btns[i]
+    for (var i = 0; i &lt; btns.length; i++) {
+      btns[i].onclick = function () {
+        for (let j = 0; j &lt; btns.length; j++) {
+          btns[j].style.backgroundColor = &quot;&quot;;
+        }
+        this.style.backgroundColor = &quot;pink&quot;;
+      };
+    }
+    //2. 首先先排除其他人，然后才设置自己的样式 这种排除其他人的思想我们成为排他思想
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="-">案例：百度换肤</h2>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550914640677.png" alt="1550914640677"></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550914663042.png" alt="1550914663042"></p>
+<pre><code class="lang-js">&lt;body&gt;
+    &lt;ul class=&quot;baidu&quot;&gt;
+        &lt;li&gt;&lt;img src=&quot;images/1.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;images/2.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;images/3.jpg&quot;&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src=&quot;images/4.jpg&quot;&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;script&gt;
+        // 1. 获取元素
+        var imgs = document.querySelector(&#39;.baidu&#39;).querySelectorAll(&#39;img&#39;);
+        // console.log(imgs);
+        // 2. 循环注册事件
+        for (var i = 0; i &lt; imgs.length; i++) {
+            imgs[i].onclick = function() {
+                // this.src 就是我们点击图片的路径   images/2.jpg
+                // console.log(this.src);
+                // 把这个路径 this.src 给body 就可以了
+                document.body.style.backgroundImage = &#39;url(&#39; + this.src + &#39;)&#39;;
+            }
+        }
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="-">案例：表格隔行变色</h2>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550914791881.png" alt="1550914791881"></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550914812202.png" alt="1550914812202"></p>
+<pre><code class="lang-js">    &lt;script&gt;
+        // 1.获取元素 获取的是 tbody 里面所有的行
+        var trs = document.querySelector(&#39;tbody&#39;).querySelectorAll(&#39;tr&#39;);
+        // 2. 利用循环绑定注册事件
+        for (var i = 0; i &lt; trs.length; i++) {
+            // 3. 鼠标经过事件 onmouseover
+            trs[i].onmouseover = function() {
+                    // console.log(11);
+                    this.className = &#39;bg&#39;;
+                }
+                // 4. 鼠标离开事件 onmouseout
+            trs[i].onmouseout = function() {
+                this.className = &#39;&#39;;
+            }
+        }
+    &lt;/script&gt;
+</code></pre>
+<h2 id="-">案例：全选</h2>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550914980274.png" alt="1550914980274"></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550915005393.png" alt="1550915005393"></p>
+<pre><code class="lang-js">    &lt;script&gt;
+        // 1. 全选和取消全选做法：  让下面所有复选框的checked属性（选中状态） 跟随 全选按钮即可
+        // 获取元素
+
+        var j_cbAll = document.getElementById(&#39;j_cbAll&#39;);
+        var j_tbs = document.getElementById(&#39;j_tb&#39;).getElementsByTagName(&#39;input&#39;);
+        // 全选按钮注册事件
+        j_cbAll.onclick = function() {
+                // this.checked 当前复选框的选中状态
+                console.log(this.checked);
+                for (var i = 0; i &lt; j_tbs.length; i++) {
+                    j_tbs[i].checked = this.checked;
+                }
+         }
+         // 给所有的子复选框注册单击事件
+        for (var i = 0; i &lt; j_tbs.length; i++) {
+            j_tbs[i].onclick = function() {
+                // flag 控制全选按钮是否选中
+                var flag = true;
+                // 每次点击下面的复选框都要循环检查者4个小按钮是否全被选中
+                for (var i = 0; i &lt; j_tbs.length; i++) {
+                    if (!j_tbs[i].checked) {
+                        flag = false;
+                        break;
+                    }
+                }
+                // 设置全选按钮的状态
+                j_cbAll.checked = flag;
+            }
+        }
+    &lt;/script&gt;
+</code></pre>
+<h2 id="-">自定义属性操作</h2>
+<h3 id="-">获取元素值</h3>
+<ol>
+<li><strong>element.属性</strong> 获取属性值</li>
+<li><strong>element.getAttribute(&#39;属性&#39;)</strong></li>
+</ol>
+<p><strong>区别：</strong></p>
+<ul>
+<li><strong>element.属性</strong> //获取内置对象属性值（元素本身自带的属性值）</li>
+<li><strong>element.getAttribute(&#39;属性&#39;)</strong> // 主要获取自定义属性值（标准）我们程序员自己定义 的属性值</li>
+</ul>
+<p><strong>案例：</strong></p>
+<pre><code class="lang-html">&lt;div id=&quot;demo&quot; index=&quot;1&quot; class=&quot;nav&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  var div = document.querySelector(&quot;div&quot;);
+  // 1. 获取元素的属性值
+  // (1) element.属性
+  console.log(div.id); //dome
+  //(2) element.getAttribute(&#39;属性&#39;)  get得到获取 attribute 属性的意思 我们程序员自己添加的属性我们称为自定义属性 index
+  console.log(div.getAttribute(&quot;id&quot;)); //dome
+  console.log(div.getAttribute(&quot;index&quot;)); //1
+&lt;/script&gt;
+</code></pre>
+<h3 id="-">设置元素属性</h3>
+<ol>
+<li><strong>element.属性 = &#39;值&#39;</strong> //设置内置属性值</li>
+<li><strong>element.getAttribute(&#39;属性&#39;,&#39;值&#39;)</strong></li>
+</ol>
+<p><strong>区别：</strong></p>
+<ul>
+<li><strong>element.属性 = &#39;值&#39;</strong> //设置内置属性值</li>
+<li><strong>element.getAttribute(&#39;属性&#39;,&#39;值&#39;)</strong> //</li>
+</ul>
+<p><strong>案例：</strong></p>
+<pre><code class="lang-html">&lt;div id=&quot;demo&quot; index=&quot;1&quot; class=&quot;nav&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  var div = document.querySelector(&quot;div&quot;);
+  // 1. 设置元素的属性值
+
+  div.id = &quot;one&quot;;
+  console.log(div.id); //one
+  div.setAttribute(&quot;index&quot;, 5);
+  console.log(div.getAttribute(&quot;index&quot;)); //5
+&lt;/script&gt;
+</code></pre>
+<h3 id="-">移除属性</h3>
+<p><strong>element.removeAttribute(&#39;属性&#39;)</strong>
+<strong>案例：</strong></p>
+<pre><code class="lang-html">&lt;div id=&quot;demo&quot; index=&quot;1&quot; class=&quot;nav&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+  var div = document.querySelector(&quot;div&quot;);
+  // 1. 移除元素的属性值
+
+  div.removeAttribute(&quot;class&quot;);
+  console.log(div.getAttribute(&quot;class&quot;)); //null
+&lt;/script&gt;
+</code></pre>
+<h3 id="-tab-">综合案例: tab 栏</h3>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550915567627.png" alt="1550915567627">
+<img src="E:\传智播客md笔记\7.web API\day2\images\1550915590707.png" alt="1550915590707"></p>
+<p>代码：</p>
+<pre><code class="lang-js">// 获取元素
+var tab_list = document.querySelector(&quot;.tab_list&quot;);
+var lis = tab_list.querySelectorAll(&quot;li&quot;);
+var items = document.querySelectorAll(&quot;.item&quot;);
+// for循环绑定点击事件
+for (let i = 0; i &lt; lis.length; i++) {
+  lis[i].index = i;
+  // console.log(lis[i].index);
+  lis[i].onclick = function () {
+    for (let i = 0; i &lt; lis.length; i++) {
+      lis[i].className = &quot;&quot;;
+      items[i].style.display = &quot;none&quot;;
+    }
+    this.className = &quot;current&quot;;
+
+    var k = this.index;
+    items[k].style.display = &quot;block&quot;;
+  };
+}
+</code></pre>
+<h3 id="h5-">H5 自定义属性</h3>
+<ol>
+<li>设置 H5 自定义属性
+<img src="E:\传智播客md笔记\7.web API\day2\images\1550915798516.png" alt="1550915798516"></li>
+<li><p>获取 H5 自定义属性</p>
+</li>
+<li><p>传统获取方法: 兼容性好 <strong>element.getAttribute(&#39;data-index&#39;)</strong></p>
+</li>
+<li>H5 新增获取方法：ie11 开始支持
+<strong>element.dataset.index</strong>或者<strong>element.dataset[&#39;index&#39;]</strong></li>
+</ol>
+<p>案例：</p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;div getTime=&quot;20&quot; data-index=&quot;2&quot; data-list-name=&quot;andy&quot;&gt;&lt;/div&gt;
+  &lt;script&gt;
+    var div = document.querySelector(&quot;div&quot;);
+    // console.log(div.getTime);
+    console.log(div.getAttribute(&quot;getTime&quot;));
+    div.setAttribute(&quot;data-time&quot;, 20);
+    console.log(div.getAttribute(&quot;data-index&quot;));
+    console.log(div.getAttribute(&quot;data-list-name&quot;));
+    // h5新增的获取自定义属性的方法 它只能获取data-开头的
+    // dataset 是一个集合里面存放了所有以data开头的自定义属性
+    console.log(div.dataset);
+    console.log(div.dataset.index);
+    console.log(div.dataset[&quot;index&quot;]);
+    // 如果自定义属性里面有多个-链接的单词，我们获取的时候采取 驼峰命名法
+    console.log(div.dataset.listName);
+    console.log(div.dataset[&quot;listName&quot;]);
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="-">节点操作</h2>
+<h3 id="-">节点概述</h3>
+<p> 网页中的所有内容都是节点（标签、属性、文本、注释等），在 DOM 中，节点使用 node 来表示。</p>
+<p> HTML DOM 树中的所有节点均可通过 JavaScript 进行访问，所有 HTML 元素（节点）均可被修改，也可以创建或删除。</p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550970944363.png" alt="1550970944363"></p>
+<p> 一般地，节点至少拥有 nodeType（节点类型）、nodeName（节点名称）和 nodeValue（节点值）这三个基本属性。</p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550970986988.png" alt="1550970986988"></p>
+<h3 id="-">节点层级</h3>
+<p> 利用 DOM 树可以把节点划分为不同的层级关系，常见的是<strong>父子兄层级关系</strong>。</p>
+<p> <img src="E:\传智播客md笔记\7.web API\day2\images\1550971058781.png" alt="1550971058781"></p>
+<h3 id="-">父级节点</h3>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550971196686.png" alt="1550971196686"></p>
+<pre><code class="lang-js">    &lt;div class=&quot;demo&quot;&gt;
+        &lt;div class=&quot;box&quot;&gt;
+            &lt;span class=&quot;erweima&quot;&gt;×&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;script&gt;
+        // 1. 父节点 parentNode
+        var erweima = document.querySelector(&#39;.erweima&#39;);
+        // var box = document.querySelector(&#39;.box&#39;);
+        // 得到的是离元素最近的父级节点(亲爸爸) 如果找不到父节点就返回为 null
+        console.log(erweima.parentNode);
+    &lt;/script&gt;
+</code></pre>
+<h3 id="-">子节点</h3>
+<p><strong>所有子节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550971263925.png" alt="1550971263925"></p>
+<p><strong>子元素节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550971325828.png" alt="1550971325828"></p>
+<pre><code class="lang-html">&lt;ul&gt;
+  &lt;li&gt;我是li&lt;/li&gt;
+  &lt;li&gt;我是li&lt;/li&gt;
+  &lt;li&gt;我是li&lt;/li&gt;
+  &lt;li&gt;我是li&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+  // DOM 提供的方法（API）获取
+  var ul = document.querySelector(&quot;ul&quot;);
+  var lis = ul.querySelectorAll(&quot;li&quot;);
+  // 1. 子节点  childNodes 所有的子节点 包含 元素节点 文本节点等等
+  console.log(ul.childNodes);
+  console.log(ul.childNodes[0].nodeType);
+  console.log(ul.childNodes[1].nodeType);
+  // 2. children 获取所有的子元素节点 也是我们实际开发常用的
+  console.log(ul.children);
+&lt;/script&gt;
+</code></pre>
+<p><strong>第 1 个子节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550971774758.png" alt="1550971774758"></p>
+<p><strong>最后 1 个子节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550971825493.png" alt="1550971825493"></p>
+<p><strong>第 1 个子元素节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550972014509.png" alt="1550972014509"></p>
+<p><strong>最后 1 个子元素节点</strong></p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550972106485.png" alt="1550972106485"></p>
+<p> 实际开发中，firstChild 和 lastChild 包含其他节点，操作不方便，而 firstElementChild 和 lastElementChild 又有兼容性问题，那么我们如何获取第一个子元素节点或最后一个子元素节点呢？</p>
+<p><img src="E:\传智播客md笔记\7.web API\day2\images\1550972648014.png" alt="1550972648014"></p>
+<pre><code class="lang-html">&lt;ol&gt;
+  &lt;li&gt;我是li1&lt;/li&gt;
+  &lt;li&gt;我是li2&lt;/li&gt;
+  &lt;li&gt;我是li3&lt;/li&gt;
+  &lt;li&gt;我是li4&lt;/li&gt;
+  &lt;li&gt;我是li5&lt;/li&gt;
+&lt;/ol&gt;
+&lt;script&gt;
+  var ol = document.querySelector(&quot;ol&quot;);
+  // 1. firstChild 第一个子节点 不管是文本节点还是元素节点
+  console.log(ol.firstChild);
+  console.log(ol.lastChild);
+  // 2. firstElementChild 返回第一个子元素节点 ie9才支持
+  console.log(ol.firstElementChild);
+  console.log(ol.lastElementChild);
+  // 3. 实际开发的写法  既没有兼容性问题又返回第一个子元素
+  console.log(ol.children[0]);
+  console.log(ol.children[ol.children.length - 1]);
+&lt;/script&gt;
+`
+</code></pre>
+<blockquote>
+<p>今日目标:</p>
+<p>删除&amp;克隆节点</p>
+<p>动态生成列表案例</p>
+<p>创建元素方法比较</p>
+<p>事件高级</p>
+</blockquote>
+<p>问题：</p>
+<p>1 用什么方法删除节点？</p>
+<p>2 用什么方法克隆节点？参数有什么作用？</p>
+<p>3 试描述动态生成表格案例需求及思路</p>
+<p>4 有几种方法可以创建元素？较常用的有那些？有什么注意事项？</p>
+<p>5  事件绑定的新方法是？与传统绑定方法有何区别？</p>
+<p>6  如何删除事件绑定？</p>
+<p>7 什么是事件流？</p>
+<p>8 什么是事件对象？如何获取事件对象？</p>
+<p>9  e.target和this的区别是什么？</p>
+<p>10 何谓默认行为？如何阻止事件默认行为？</p>
+<p>11 如何阻止事件冒泡？</p>
+<p>12 什么是事件委托？事件委托有何好处？</p>
+<p>13 如何禁止选中文字及禁止右键菜单？</p>
+<p>14 如何获取鼠标相对于盒子的坐标？</p>
+<h2 id="-">删除&amp;克隆节点</h2>
+<pre><code class="lang-js">//删除
+父元素.removeChild(子元素) //将父元素中的子元素删除
+ele.remove()//自己删除自己，ie不兼容
+//克隆
+ele.cloneNode()//复制节点本身
+ele.cloneNode(true)//复制节点本身及其子节点
+</code></pre>
+<h2 id="-">动态生成列表案例</h2>
+<pre><code class="lang-js">// 1.先准备好学生的数据
+var datas = [
+    {
+        name: &#39;魏璎珞&#39;,
+        subject: &#39;JavaScript&#39;,
+        score: 100,
+    },
+    {
+        name: &#39;弘历&#39;,
+        subject: &#39;JavaScript&#39;,
+        score: 98,
+    },
+    {
+        name: &#39;傅恒&#39;,
+        subject: &#39;JavaScript&#39;,
+        score: 99,
+    },
+    {
+        name: &#39;明玉&#39;,
+        subject: &#39;JavaScript&#39;,
+        score: 88,
+    },
+    {
+        name: &#39;大猪蹄子&#39;,
+        subject: &#39;JavaScript&#39;,
+        score: 0,
+    },
+];
+// 2. 往tbody 里面创建行： 有几个人（通过数组的长度）我们就创建几行
+var tbody = document.querySelector(&#39;tbody&#39;);
+
+// 遍历数组 创建tr插入到tbody中
+for (var i = 0; i &lt; datas.length; i++) {
+    var tr = document.createElement(&#39;tr&#39;);
+    tbody.appendChild(tr);
+    // 遍历对象 创建td插入到tr中
+    for (var k in datas[i]) {
+        var td = document.createElement(&#39;td&#39;);
+        tr.appendChild(td);
+        td.innerHTML = datas[i][k];
+    }
+    //添加删除td
+    var td = document.createElement(&#39;td&#39;);
+    td.innerHTML = &#39;&lt;a href=&quot;javascript:;&quot;&gt;删除&lt;/a&gt;&#39;;
+    //为删除td内的a绑定click处理函数，删除所在的tr
+    td.children[0].onclick = function () {
+        tbody.removeChild(this.parentNode.parentNode); //此处this指a标签
+    };
+    tr.appendChild(td);
+}
+</code></pre>
+<h2 id="-">创建元素方法比较</h2>
+<ul>
+<li>document.write()   // 当文档流加载结束后执行该语句时回直接覆盖整个页面，实际很少用</li>
+<li>element.innerHTML = &#39;XXX&#39;  //应用较多，需要注意的是不要将该语句放在循环体中反复执行，非常影响性能</li>
+<li>element.createElement(标签名)；appenedChild();使用步骤稍繁琐，但结构较清晰，实际应用也较多,性能上略低于.innerHTML方式</li>
+</ul>
+<h2 id="-">事件高级</h2>
+<h3 id="-">注册/解绑事件的新方式</h3>
+<pre><code class="lang-js">//传统方式,只能绑定一个事件处理函数，绑定多个时后面的会覆盖前面的
+事件源.on事件类型 = 事件处理函数
+如 document.body.onclick = function(){
+    alert(1)
+}
+//新方式
+事件源.addEventListener(事件类型,事件处理函数)//不支持IE8及更低版本IE
+如 document.body.addEventListener(&#39;click&#39;,function(){
+    alert(1)
+})
+对于IE8以下浏览器使用 事件源.attachEvent(&#39;on&#39;+事件类型,事件处理函数)//了解即可
+
+//解绑事件 传统方式
+事件源.on事件类型 = null;
+// 新方式
+事件源.removeEventListener(事件类型,事件处理函数函数名)//要求事件处理函数必须有函数名
+//对于IE8以下浏览器
+事件源.detachEvent(&#39;on&#39;+事件类型,事件处理函数函数名)
+</code></pre>
+<h3 id="-">事件流</h3>
+<pre><code class="lang-js">//所谓事件流，指事件(click/mouseover/mousedown...)发生时的传播过程.
+//网页中事件按 捕获(由外到内)-&gt;目标-&gt;冒泡(由内到外)三个阶段 传播 如 document-&gt;html-&gt;body-&gt;...-&gt;目标-&gt;...-&gt;body-&gt;html-&gt;document
+//由于事件流机制，外层元素也能侦听到内层元素上发生的事件
+
+//addEventListener方式绑定事件时，可选择在冒泡或捕获阶段响应，默认为冒泡阶段
+document.addEventListener(&#39;click&#39;,function(){alert(1)})//冒泡阶段响应
+document.addEventListener(&#39;click&#39;,function(){alert(1)},true)//捕获阶段响应
+//传统方式或attachEvent方式绑定事件，只能在冒泡阶段响应
+</code></pre>
+<h3 id="-">事件对象</h3>
+<pre><code class="lang-js">// 事件发生时的各种信息(如 鼠标光标坐标、键盘的键码、发生事件的具体元素...)被浏览器自动存放到事件对象中，且以实参的形式传递给事件处理函数 
+element.onclick = function(e){
+    e=e||window.event; //兼容性写法
+    console.log(e)
+    console.log(arguments[0])//也能获取到事件对象
+}
+</code></pre>
+<h3 id="-">阻止事件默认行为</h3>
+<pre><code class="lang-js">// 方法1:e.preventDefault()  //ie9及以上版本支持，对addEventListener及传统方式绑定均支持
+// 方法2:return false; //无兼容性问题，但仅支持传统方式绑定的事件
+//兼容性写法
+if(e.preventDefault){
+    e.preventDefault()
+}else{
+    return false;
+}
+</code></pre>
+<h3 id="-">阻止事件冒泡</h3>
+<pre><code class="lang-js">// 标准方法(不兼容IE678)：e.stopPropagation();
+// 非标准(兼容IE678)  e.cancelBubble = true;
+if(e.stopPropagation){
+    e.stopPropagation()
+}else{
+    e.cancelBubble = true;
+}
+</code></pre>
+<h3 id="-">事件委托</h3>
+<pre><code class="lang-js">原理:将事件绑定到外层元素上，因为发生在子元素上的事件最终也会冒泡到外层元素上，故可以在外层元素的事件处理函数中统一处理发生在所有子元素上的事件。
+
+好处:不用给每个子元素都绑定事件，让代码更简洁且提高性能
+</code></pre>
+<pre><code class="lang-html">&lt;ul&gt;
+      &lt;li&gt;知否知否，点我应有弹框在手！&lt;/li&gt;
+      &lt;li&gt;知否知否，点我应有弹框在手！&lt;/li&gt;
+      &lt;li&gt;知否知否，点我应有弹框在手！&lt;/li&gt;
+      &lt;li&gt;知否知否，点我应有弹框在手！&lt;/li&gt;
+      &lt;li&gt;知否知否，点我应有弹框在手！&lt;/li&gt;
+&lt;/ul&gt;
+&lt;script&gt;
+    // 事件委托的核心原理：给父节点添加侦听器， 利用事件冒泡影响每一个子节点
+    var ul = document.querySelector(&#39;ul&#39;);
+    ul.addEventListener(&#39;click&#39;, function (e) {
+        // alert(&#39;知否知否，点我应有弹框在手！&#39;);
+        // e.target 这个可以得到我们点击的对象
+        // e.target.style.backgroundColor = &#39;pink&#39;;
+        //获取被点击的li的下标
+        var index = e.target.getAttribute(&#39;index&#39;);
+        //根据下标获取到对应的颜色并赋值给当前li的背景色样式属性
+        e.target.style.backgroundColor = colors[index];
+    });
+    var colors = [&#39;red&#39;, &#39;green&#39;, &#39;yellow&#39;, &#39;blue&#39;, &#39;pink&#39;];
+    //设置自定义属性记录下标
+    for (var i = 0; i &lt; colors.length; i++) {
+        ul.children[i].setAttribute(&#39;index&#39;, i);
+    }
+&lt;/script&gt;
+</code></pre>
+<h3 id="-">鼠标事件汇总</h3>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>触发时机</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>click</td>
+<td>点击鼠标左键</td>
+<td></td>
+</tr>
+<tr>
+<td>mouseover</td>
+<td>鼠标经过</td>
+<td></td>
+</tr>
+<tr>
+<td>mouseout</td>
+<td>鼠标离开</td>
+<td></td>
+</tr>
+<tr>
+<td>focus</td>
+<td>得到焦点</td>
+<td>不会冒泡</td>
+</tr>
+<tr>
+<td>blur</td>
+<td>失去焦点</td>
+<td>不会冒泡</td>
+</tr>
+<tr>
+<td>contextmenu</td>
+<td>点击鼠标右键</td>
+<td></td>
+</tr>
+<tr>
+<td>selectstart</td>
+<td>开始选中一段文字</td>
+<td></td>
+</tr>
+<tr>
+<td>mousedown</td>
+<td>按下鼠标左键</td>
+<td></td>
+</tr>
+<tr>
+<td>mouseup</td>
+<td>松开鼠标</td>
+<td></td>
+</tr>
+<tr>
+<td>mousemove</td>
+<td>移动鼠标</td>
+<td>每移动1px就会触发</td>
+</tr>
+<tr>
+<td>dblclick</td>
+<td>双击鼠标左键</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>主要内容:</p>
+<p>键盘事件</p>
+<p>键盘事件对象</p>
+<p>BOM</p>
+</blockquote>
+<h2 id="-">键盘事件</h2>
+<p>问题：</p>
+<ol>
+<li>键盘事件有哪三种?分别在什么时候触发?触发的先后顺序如何?</li>
+<li>哪种键盘事件识别大小写？哪种键盘事件识别功能键?</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>事件类型</th>
+<th>触发时机</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keydown</td>
+<td>按下键</td>
+<td>能识别功能键，不识别大小写</td>
+</tr>
+<tr>
+<td>keypress</td>
+<td>按下键</td>
+<td>不能识别功能键，识别大小写</td>
+</tr>
+<tr>
+<td>keyup</td>
+<td>松开键</td>
+<td>能识别功能键,不识别大小写</td>
+</tr>
+</tbody>
+</table>
+<p>触发顺序:keydown-&gt;keypress-&gt;keyup    keydown/keypress按住不动时都会反复执行</p>
+<h2 id="-">键盘事件对象</h2>
+<p>问题:</p>
+<ol>
+<li>如何判断按下了键盘的哪个键?</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>keyCode</td>
+<td>键码(与键对应字符的ASCII码一致) 识别不同的键</td>
+<td>不需要记住，使用时测试就行</td>
+</tr>
+<tr>
+<td>altkey</td>
+<td>判断是否按下alt键</td>
+<td>常用于实现组合键 效果</td>
+</tr>
+<tr>
+<td>shiftkey</td>
+<td>判断是否按下shift键</td>
+<td></td>
+</tr>
+<tr>
+<td>ctrlkey</td>
+<td>判断是否按下ctrl键</td>
+</tr>
+</tbody>
+</table>
+<p>案例问题：</p>
+<ol>
+<li>如何用代码自动触发得到焦点事件?使用keyup还是keydown？为什么?</li>
+<li>说出京东快递单号查询案例的需求(需求清晰==50%的程序)。</li>
+<li>为什么不能用keyup</li>
+</ol>
+<h2 id="bom">BOM</h2>
+<p>问题:</p>
+<p>1 BOM的全称是？有什么作用？BOM和DOM哪个更大？</p>
+<p>2 BOM中最大的对象是什么?有什么作用?</p>
+<p>3 load和DOMContentLoaded事件分别在何时触发？他们都是window的事件么？</p>
+<p>4 resize事件在什么时候触发？</p>
+<p>5 setTimeout有什么作用？需要哪几个参数？返回值的数据类型是？有什么作用?clearTimeout有何作用?</p>
+<p>6 this指向哪个对象遵循什么原则？</p>
+<p>7 js代码在执行时按执行顺序可分为哪两大类?</p>
+<p>9 试列举有哪些代码是异步任务</p>
+<p>10 location.href有什么作用？location.search呢?</p>
+<p>11 如何用history对象实现后退？</p>
+<h3 id="-">简介</h3>
+<p>BOM:Browser Object Model浏览器对象模型,用于操作浏览器,因为是由各大公司制定的规则，故BOM的效果在不同浏览器中常有细微差别</p>
+<p>BOM其实包含DOM</p>
+<h3 id="window-">window对象</h3>
+<p>window是BOM的顶级对象，所有资源其实都可视为window的属性或方法.window同时表示浏览器窗口。</p>
+<p>全局变量可视为window的自定义属性，全局函数可视为window的自定义方法</p>
+<h4 id="-">相关事件</h4>
+<table>
+<thead>
+<tr>
+<th>事件名</th>
+<th>触发时机</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>load</td>
+<td>页面资源(包括图片、外部css/js等等)完全加载完成后触发</td>
+<td></td>
+</tr>
+<tr>
+<td>DOMContentLoaded</td>
+<td>dom（不包含图片）加载完成后触发</td>
+<td>是document的事件，需通过addEventListener方式绑定</td>
+</tr>
+<tr>
+<td>resize</td>
+<td>改变窗口大小时触发</td>
+<td></td>
+</tr>
+<tr>
+<td>beforeunload</td>
+<td>关闭或刷新页面时触发</td>
+<td>需最少和页面交互一次,如点击页面</td>
+</tr>
+</tbody>
+</table>
+<h4 id="-">相关方法</h4>
+<h5 id="-">定时器</h5>
+<pre><code class="lang-js">// 延迟执行一次定时器
+//使用方法1-最常用
+var t=setTimeout(function(){...}，2000)
+//使用方法2
+setTimeout(函数名,2000)
+//使用方法3--很少用
+setTimeout(&#39;函数名()&#39;,2000)  
+clearTimeout(t)//清除t对应的定时器
+
+
+//回调函数:延迟一段时间后被回头调用的函数，通常作为某个函数的参数，如 事件处理函数及定时器中作为参数的函数均为回调函数。
+
+// 间隔一段时间反复执行定时器
+var t=setInterval(function(){},2000)
+clearInterval(t)//清除t对应的定时器
+
+// setInterval需要注意定时器叠加，通常在调用之前先清除
+var t=null;
+clearInterval(t)                          
+t=setInterval(function(){},2000)
+clearInterval(t)//清除t对应的定时器
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>开启一个新窗口</td>
+<td>可以实现页面跳转</td>
+</tr>
+<tr>
+<td>close</td>
+<td>关闭窗口</td>
+</tr>
+</tbody>
+</table>
+<h4 id="this-">this指向问题</h4>
+<p><em>大原则:谁调用，指向谁</em></p>
+<ul>
+<li>全局作用域或普通函数中的this指向window</li>
+<li>方法调用，方法体中的this指向 调用方法的对象</li>
+<li>事件处理函数中的this指向事件源</li>
+<li>定时器回调函数中的this指向window</li>
+<li>构造函数中的this指向即将构造出来的对象</li>
+</ul>
+<h4 id="js-">js执行机制</h4>
+<p>js代码分两部分，同步任务及异步任务(事件处理函数、定时器回调函数、ajax)，先执行同步任务，异步任务满足条件后排队执行</p>
+<p><img src="E:/传智播客md笔记/7.web API/老师笔记/images/1551435398306.png" alt="1551435398306"></p>
+<h3 id="location-">location对象</h3>
+<p>重要概念:url(统一资源定位符) 用于唯一地确定某个网络资源     构成: 协议//域名/路径?参数#hash 如<a href="http://www.baidu.com/index.html?keywords=html&amp;lang=zhcn#top">http://www.baidu.com/index.html?keywords=html&amp;lang=zhcn#top</a></p>
+<table>
+<thead>
+<tr>
+<th>属性/方法名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>href</td>
+<td>获取或者设置完整的url,可以实现页面跳转</td>
+<td></td>
+</tr>
+<tr>
+<td>search</td>
+<td>获取或者设置url中的参数</td>
+<td>包括?</td>
+</tr>
+<tr>
+<td>host</td>
+<td>获取或者设置主机/域名</td>
+<td></td>
+</tr>
+<tr>
+<td>protocol</td>
+<td>获取或者设置协议</td>
+<td></td>
+</tr>
+<tr>
+<td>pathname</td>
+<td>获取或者设置路径</td>
+<td></td>
+</tr>
+<tr>
+<td>hash</td>
+<td>获取或者设置锚点(#后面的部份)</td>
+<td></td>
+</tr>
+<tr>
+<td>assign()</td>
+<td>跳转到新页面</td>
+<td>可以通过后退返回原页面</td>
+</tr>
+<tr>
+<td>replace()</td>
+<td>跳转到新页面</td>
+<td>不能后退到原页面</td>
+</tr>
+<tr>
+<td>reload()</td>
+<td>刷新</td>
+<td>传实参true 强制刷新</td>
+</tr>
+</tbody>
+</table>
+<h3 id="navigator-">navigator对象</h3>
+<pre><code class="lang-js"> if ((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i))) {
+     window.location.href = &quot;../H5/index.html&quot;; //手机
+ }
+</code></pre>
+<h3 id="history-">history对象</h3>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>forward()</td>
+<td>前进</td>
+<td></td>
+</tr>
+<tr>
+<td>back()</td>
+<td>后退</td>
+<td></td>
+</tr>
+<tr>
+<td>go()</td>
+<td>跳转到历史记录中的某个页面 go(1)相当于前进 go(-1)后退 go(0)刷新</td>
+</tr>
+</tbody>
+</table>
+<h2 id="-offset-">元素偏移量 offset 系列</h2>
+<h3 id="offset-">offset 概述</h3>
+<p>offset 中文意思是偏移量，可以通过 offset 相关属性可以动态获取该元素的位置，大小等</p>
+<ol>
+<li>获取元素距离带有定位父元素的位置，</li>
+<li>获取元素自身的大小（宽高）</li>
+<li>返回值不带单位</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>offset 属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>offsetParent</td>
+<td>返回该元素带有定位发父级元素，如果父元素没有定位则返回 body</td>
+</tr>
+<tr>
+<td>offsetTop</td>
+<td>返回元素带有定位父元素上方的偏移量</td>
+</tr>
+<tr>
+<td>offsetLeft</td>
+<td>返回元素相对带有父级元素左边框的偏移量</td>
+</tr>
+<tr>
+<td>offsetWidth</td>
+<td>返回自身包括 padding，边框，内容区的宽度，返回数值不带单位</td>
+</tr>
+<tr>
+<td>offsetHeight</td>
+<td>返回自身包括 padding，边框，内容区的高度，返回数值不带单位</td>
+</tr>
+</tbody>
+</table>
+<p>###offset 与 style 区别</p>
+<h4 id="offset">offset</h4>
+<ul>
+<li><p>offset 可以得到任意样式表中的样式值</p>
+</li>
+<li><p>offset 系列获得的数值是没有单位的</p>
+</li>
+<li><p>offsetWidth 包含 padding+border+width</p>
+</li>
+<li><p>offsetWidth 等属性是只读属性，只能获取不能赋值</p>
+</li>
+<li><blockquote>
+<p>所以，我们想要获取元素大小位置，用 offset 更合适</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="style">style</h4>
+<ul>
+<li><p>style 只能得到行内样式表中的样式值</p>
+</li>
+<li><p>style.width 获得的是带有单位的字符串</p>
+</li>
+<li><p>style.width 获得不包含 padding 和 border 的值</p>
+</li>
+<li><p>style.width 是可读写属性，可以获取也可以赋值</p>
+</li>
+<li><blockquote>
+<p>所以，我们想要给元素更改值，则需要用 style 改变</p>
+</blockquote>
+</li>
+</ul>
+<p>##元素可视区 client 系列</p>
+<h3 id="client-">client 概述</h3>
+<p>client 翻译过来就是客户端，我们使用 client 系列的相关属性来获取元素可视区的相关信息。通过 client
+系列的相关属性可以动态的得到该元素的边框大小、元素大小等。</p>
+<table>
+<thead>
+<tr>
+<th>client 属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>clientTop</td>
+<td>返回元素上边框大小</td>
+</tr>
+<tr>
+<td>clientLeft</td>
+<td>返回元素左边框大小</td>
+</tr>
+<tr>
+<td>clientWidth</td>
+<td>返回自身包括 padding、内容宽度、不含边框、返回数值不带单位</td>
+</tr>
+<tr>
+<td>clientHeight</td>
+<td>返回自身包括 padding、内容高度、不含边框、返回数值不带单位</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">源码分析</h3>
+<p>立即执行函数  <strong>(function(){})()</strong> 
+或者 <strong>(function(){}())</strong>
+主要作用： 创建一个独立的作用域。 避免了命名冲突问题</p>
+<p>下面三种情况都会刷新页面都会触发 load 事件。</p>
+<p>1.a 标签的超链接</p>
+<p>2.F5 或者刷新按钮（强制刷新）</p>
+<p>3.前进后退按钮</p>
+<p>但是在火狐中，有个特点”往返缓存“，这个缓存中不仅保存着页面数据，还保存了 DOM 和 JavaScript 的状态；实际上是将整个页面都保存在了内存里。
+所以此时后退按钮不能刷新页面。</p>
+<p>此时可以使用 pageshow 事件来触发。，这个事件在页面显示时触发，无论页面是否来自缓存。在重新加载页面中，pageshow 会在 load 事件触发后触发；根据事件对象中的 persisted 来判断是否是缓存中的页面触发的 pageshow 事件</p>
+<h2 id="3-scroll-">3.元素滚动 scroll 系列</h2>
+<h3 id="scroll-">scroll 概述</h3>
+<p>scroll 为滚动的意思，使用 scroll 系列相关的属性可以动态的得到该元素的大小、滚动距离等</p>
+<table>
+<thead>
+<tr>
+<th>scroll 属性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scrollTop</td>
+<td>返回元素上边框大小</td>
+</tr>
+<tr>
+<td>scrollLeft</td>
+<td>返回元素左边框大小</td>
+</tr>
+<tr>
+<td>scrollWidth</td>
+<td>返回自身包括 padding、内容的宽度、不含边框，返回值不带单位</td>
+</tr>
+<tr>
+<td>scrollHeight</td>
+<td>返回自身包括 padding、内容的高度、不含边框，返回值不带单位</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">页面被卷去的头部</h3>
+<p>当滚动条向下滚动时，页面上面被隐藏掉的高度，我们就称为页面被卷去的头部。滚动条在滚动时会触发 onscroll 事件。</p>
+<ul>
+<li><strong>window.pageYOffset</strong> 可以获得页面被卷去的头部</li>
+<li><strong>window.pageXOffset</strong>可以获得页面被卷去的左侧</li>
+<li><strong>element.scrollTop</strong> 可以获取元素被卷去的头部</li>
+</ul>
+<h2 id="-">三大系列总结</h2>
+<p><img src="E:/传智播客md笔记/7.web API/day5/images/图片7.png" alt="图片7">
+他们主要用法：</p>
+<ol>
+<li><p>offset 系列 经常用于获得元素位置     offsetLeft  offsetTop</p>
+</li>
+<li><p>client 经常用于获取元素大小   clientWidth clientHeight</p>
+</li>
+<li><p>scroll 经常用于获取滚动距离  scrollTop  scrollLeft</p>
+</li>
+<li><p>注意页面滚动的距离通过 window.pageXOffset   获得</p>
+</li>
+</ol>
+<h2 id="mouseenter-mouseover-">mouseenter 和 mouseover 的区别</h2>
+<ul>
+<li>当鼠标移动到元素上时就会触发 mouseenter 事件</li>
+<li>类似 mouseover，它们两者之间的差别是</li>
+<li>mouseover 鼠标经过自身盒子会触发，经过子盒子还会触发。mouseenter  只会经过自身盒子触发</li>
+<li>之所以这样，就是因为 mouseenter 不会冒泡</li>
+<li>跟 mouseenter 搭配鼠标离开 mouseleave  同样不会冒泡</li>
+</ul>
+<h2 id="-">触屏事件</h2>
+<h3 id="-">触屏事件概述</h3>
+<p>移动端浏览器兼容性较好，我们不需要考虑以前 JS 的兼容性问题，可以放心的使用原生 JS 书写效果，但是移动端也有自己独特的地方。比如触屏事件 touch（也称触摸事件），Android 和 IOS 都有。touch 对象代表一个触摸点。触摸点可能是一根手指，也可能是一根触摸笔。触屏事件可响应用户手指（或触控笔）对屏幕或者触控板操作。</p>
+<p>常见的触屏事件如下：</p>
+<p><img src="E:\传智播客md笔记\7.web API\day7\images\图片1.png" alt="图片1"></p>
+<h3 id="-touchevent-">触摸事件对象（TouchEvent）</h3>
+<p>TouchEvent 是一类描述手指在触摸平面（触摸屏、触摸板等）的状态变化的事件。这类事件用于描述一个或多个触点，使开发者可以检测触点的移动，触点的增加和减少，等等</p>
+<p>touchstart、touchmove、touchend 三个事件都会各自有事件对象。</p>
+<p>触摸事件对象重点我们看三个常见对象列表：</p>
+<p><img src="E:\传智播客md笔记\7.web API\day7\images\图片2.png" alt="图片2"></p>
+<blockquote>
+<p><strong>因为平时我们都是给元素注册触摸事件，所以重点记住 targetTocuhes</strong></p>
+</blockquote>
+<h3 id="-">移动端拖动元素</h3>
+<ol>
+<li>touchstart、touchmove、touchend 可以实现拖动元素</li>
+<li>但是拖动元素需要当前手指的坐标值 我们可以使用  targetTouches[0] 里面的pageX 和 pageY </li>
+<li>移动端拖动的原理：    手指移动中，计算出手指移动的距离。然后用盒子原来的位置 + 手指移动的距离</li>
+<li>手指移动的距离：  手指滑动中的位置 减去  手指刚开始触摸的位置</li>
+</ol>
+<p>拖动元素三步曲：</p>
+<p>（1） 触摸元素 touchstart： 获取手指初始坐标，同时获得盒子原来的位置</p>
+<p>（2） 移动手指 touchmove： 计算手指的滑动距离，并且移动盒子</p>
+<p>（3） 离开手指 touchend:</p>
+<blockquote>
+<p><strong>注意： 手指移动也会触发滚动屏幕所以这里要阻止默认的屏幕滚动 e.preventDefault();</strong></p>
+</blockquote>
+<h2 id="-">移动端常见特效</h2>
+<h3 id="-">案例: 移动轮播图</h3>
+<p><code>移动端轮播图功能和基本PC端一致。</code></p>
+<ol>
+<li>可以自动播放图片</li>
+<li>手指可以拖动播放轮播图</li>
+</ol>
+<h3 id="-">案例分析:</h3>
+<ol>
+<li>自动播放功能</li>
+<li>开启定时器</li>
+<li>移动端移动，可以使用translate 移动</li>
+<li>想要图片优雅的移动，请添加过渡效果</li>
+</ol>
+<ol>
+<li><p>自动播放功能-无缝滚动</p>
+</li>
+<li><p>注意，我们判断条件是要等到图片滚动完毕再去判断，就是过渡完成后判断</p>
+</li>
+<li><p>此时需要添加检测过渡完成事件  transitionend </p>
+</li>
+<li><p>判断条件：如果索引号等于 3 说明走到最后一张图片，此时 索引号要复原为 0</p>
+</li>
+<li><p>此时图片，去掉过渡效果，然后移动</p>
+</li>
+<li><p>如果索引号小于0， 说明是倒着走， 索引号等于2 </p>
+</li>
+<li><p>此时图片，去掉过渡效果，然后移动</p>
+</li>
+</ol>
+<h2 id="classlist-">classList 属性</h2>
+<p>classList属性是HTML5新增的一个属性，返回元素的类名。但是ie10以上版本支持。</p>
+<p>该属性用于在元素中添加，移除及切换 CSS 类。有以下方法</p>
+<p><strong>添加类：</strong></p>
+<p>element.classList.add（’类名’）；</p>
+<pre><code class="lang-javascript">focus.classList.add(&#39;current&#39;);
+</code></pre>
+<p><strong>移除类：</strong></p>
+<p>element.classList.remove（’类名’）;</p>
+<pre><code class="lang-javascript">focus.classList.remove(&#39;current&#39;);
+</code></pre>
+<p><strong>切换类：</strong></p>
+<p>element.classList.toggle（’类名’）;</p>
+<pre><code class="lang-javascript">focus.classList.toggle(&#39;current&#39;);
+</code></pre>
+<p><code>注意:以上方法里面，所有类名都不带点</code></p>
+<h3 id="-">案例分析</h3>
+<ol>
+<li><p>小圆点跟随变化效果</p>
+</li>
+<li><p>把ol里面li带有current类名的选出来去掉类名 remove</p>
+</li>
+<li><p>让当前索引号的小li 加上 current   add</p>
+</li>
+<li><p>但是，是等着过渡结束之后变化，所以这个写到 transitionend 事件里面</p>
+</li>
+</ol>
+<ol>
+<li>手指滑动轮播图</li>
+<li>本质就是ul跟随手指移动，简单说就是移动端拖动元素</li>
+<li>触摸元素touchstart：  获取手指初始坐标</li>
+<li>移动手指touchmove：  计算手指的滑动距离，并且移动盒子</li>
+<li>离开手指touchend:   根据滑动的距离分不同的情况</li>
+<li>如果移动距离小于某个像素  就回弹原来位置</li>
+<li>如果移动距离大于某个像素就上一张下一张滑动。</li>
+<li>滑动也分为左滑动和右滑动判断的标准是 移动距离正负 如果是负值就是左滑 反之右滑 </li>
+<li>如果是左滑就播放下一张 （index++）</li>
+<li>如果是右滑就播放上一张  (index--)</li>
+</ol>
+<h3 id="-">案例：返回顶部</h3>
+<p>当页面滚动某个地方，就显示，否则隐藏</p>
+<p>点击可以返回顶部</p>
+<h3 id="-">案例分析</h3>
+<ol>
+<li>滚动某个地方显示</li>
+<li>事件：scroll页面滚动事件  </li>
+<li>如果被卷去的头部（window.pageYOffset ）大于某个数值</li>
+<li>点击，window.scroll(0,0) 返回顶部</li>
+</ol>
+<h2 id="click-">click 延时解决方案</h2>
+<p>移动端 click 事件会有 300ms 的延时，原因是移动端屏幕双击会缩放(double tap to zoom) 页面。</p>
+<p>解决方案：</p>
+<p>​    1. 禁用缩放。 浏览器禁用默认的双击缩放行为并且去掉300ms 的点击延迟。</p>
+<pre><code class="lang-html">  &lt;meta name=&quot;viewport&quot; content=&quot;user-scalable=no&quot;&gt;
+</code></pre>
+<p>​    2.利用touch事件自己封装这个事件解决300ms 延迟。 </p>
+<p>​    原理就是：</p>
+<ol>
+<li>当我们手指触摸屏幕，记录当前触摸时间</li>
+<li>当我们手指离开屏幕， 用离开的时间减去触摸的时间</li>
+<li>如果时间小于150ms，并且没有滑动过屏幕， 那么我们就定义为点击</li>
+</ol>
+<p>代码如下:</p>
+<pre><code class="lang-javascript">//封装tap，解决click 300ms 延时
+function tap (obj, callback) {
+        var isMove = false;
+        var startTime = 0; // 记录触摸时候的时间变量
+        obj.addEventListener(&#39;touchstart&#39;, function (e) {
+            startTime = Date.now(); // 记录触摸时间
+        });
+        obj.addEventListener(&#39;touchmove&#39;, function (e) {
+            isMove = true;  // 看看是否有滑动，有滑动算拖拽，不算点击
+        });
+        obj.addEventListener(&#39;touchend&#39;, function (e) {
+            if (!isMove &amp;&amp; (Date.now() - startTime) &lt; 150) {  // 如果手指触摸和离开时间小于150ms 算点击
+                callback &amp;&amp; callback(); // 执行回调函数
+            }
+            isMove = false;  //  取反 重置
+            startTime = 0;
+        });
+}
+//调用  
+  tap(div, function(){   // 执行代码  });
+
+</code></pre>
+<ol start="3">
+<li>使用插件。fastclick 插件解决300ms 延迟。 </li>
+</ol>
+<h2 id="-">移动端常用开发插件</h2>
+<h3 id="-">什么是插件</h3>
+<p>移动端要求的是快速开发，所以我们经常会借助于一些插件来帮我完成操作，那么什么是插件呢？</p>
+<p>JS 插件是 js 文件，它遵循一定规范编写，方便程序展示效果，拥有特定功能且方便调用。如轮播图和瀑布流插件。</p>
+<p>特点：它一般是为了解决某个问题而专门存在，其功能单一，并且比较小。</p>
+<p>我们以前写的animate.js 也算一个最简单的插件</p>
+<p>fastclick 插件解决 300ms 延迟。 使用延时</p>
+<p>GitHub官网地址： <a href="https://github.com/ftlabs/fastclick">https://</a><a href="https://github.com/ftlabs/fastclick">github.com/ftlabs/fastclick</a></p>
+<h3 id="-">插件的使用</h3>
+<ol>
+<li><p>引入 js 插件文件。</p>
+</li>
+<li><p>按照规定语法使用。</p>
+</li>
+<li><p>fastclick 插件解决 300ms 延迟。 使用延时</p>
+</li>
+<li><p>GitHub官网地址： <a href="https://github.com/ftlabs/fastclick">https://github.com/ftlabs/fastclick</a></p>
+<pre><code class="lang-javascript">if (&#39;addEventListener&#39; in document) {
+            document.addEventListener(&#39;DOMContentLoaded&#39;, function() {
+                       FastClick.attach(document.body);
+            }, false);
+}
+</code></pre>
+</li>
+</ol>
+<h3 id="swiper-">Swiper 插件的使用</h3>
+<p>中文官网地址： <a href="https://www.swiper.com.cn/">https://www.swiper.com.cn/</a> </p>
+<ol>
+<li>引入插件相关文件。</li>
+<li>按照规定语法使用</li>
+</ol>
+<h3 id="-">其他移动端常见插件</h3>
+<p>lsuperslide： <a href="http://www.superslide2.com/">http://www.superslide2.com/</a></p>
+<p>l iscroll： <a href="https://github.com/cubiq/iscroll">https://github.com/cubiq/iscroll</a></p>
+<h3 id="-">插件的使用总结</h3>
+<p>1.确认插件实现的功能</p>
+<p>2.去官网查看使用说明</p>
+<p>3.下载插件</p>
+<p>4.打开demo实例文件，查看需要引入的相关文件，并且引入</p>
+<p>5.复制demo实例文件中的结构html，样式css以及js代码</p>
+<h3 id="-zy-media-js">移动端视频插件 zy.media.js</h3>
+<p>H5 给我们提供了 video 标签，但是浏览器的支持情况不同。</p>
+<p>不同的视频格式文件，我们可以通过source解决。</p>
+<p>但是外观样式，还有暂停，播放，全屏等功能我们只能自己写代码解决。</p>
+<p>这个时候我们可以使用插件方式来制作。</p>
+<p>我们可以通过 JS 修改元素的大小、颜色、位置等样式。</p>
+<h2 id="-">移动端常用开发框架</h2>
+<h3 id="-zy-media-js">移动端视频插件 zy.media.js</h3>
+<p>框架，顾名思义就是一套架构，它会基于自身的特点向用户提供一套较为完整的解决方案。框架的控制权在框架本身，使用者要按照框架所规定的某种规范进行开发。</p>
+<p>插件一般是为了解决某个问题而专门存在，其功能单一，并且比较小。</p>
+<p>前端常用的框架有 Bootstrap、Vue、Angular、React 等。既能开发PC端，也能开发移动端</p>
+<p>前端常用的移动端插件有 swiper、superslide、iscroll等。</p>
+<p>框架： 大而全，一整套解决方案</p>
+<p>插件： 小而专一，某个功能的解决方案</p>
+<h3 id="bootstrap">Bootstrap</h3>
+<p>Bootstrap 是一个简洁、直观、强悍的前端开发框架，它让 web 开发更迅速、简单。</p>
+<p>它能开发PC端，也能开发移动端 </p>
+<p>Bootstrap JS插件使用步骤：</p>
+<p>1.引入相关js 文件</p>
+<p>2.复制HTML 结构</p>
+<p>3.修改对应样式</p>
+<p>4.修改相应JS 参数</p>
+<h2 id="-1-7-">1.7. 本地存储</h2>
+<p>随着互联网的快速发展，基于网页的应用越来越普遍，同时也变的越来越复杂，为了满足各种各样的需求，会经常性在本地存储大量的数据，HTML5规范提出了相关解决方案。</p>
+<h3 id="-">本地存储特性</h3>
+<p>1、数据存储在用户浏览器中</p>
+<p>2、设置、读取方便、甚至页面刷新不丢失数据</p>
+<p>3、容量较大，sessionStorage约5M、localStorage约20M</p>
+<p>4、只能存储字符串，可以将对象JSON.stringify() 编码后存储</p>
+<h3 id="window-sessionstorage">window.sessionStorage</h3>
+<p>1、生命周期为关闭浏览器窗口</p>
+<p>2、在同一个窗口(页面)下数据可以共享</p>
+<p>3、以键值对的形式存储使用</p>
+<p>存储数据：</p>
+<pre><code class="lang-javascript">sessionStorage.setItem(key, value)
+</code></pre>
+<p>获取数据：</p>
+<pre><code class="lang-javascript">sessionStorage.getItem(key)
+</code></pre>
+<p>删除数据：</p>
+<pre><code class="lang-javascript">sessionStorage.removeItem(key)
+</code></pre>
+<p>清空数据：(所有都清除掉)</p>
+<pre><code class="lang-javascript">sessionStorage.clear()
+</code></pre>
+<h3 id="window-localstorage">window.localStorage</h3>
+<p>1、声明周期永久生效，除非手动删除 否则关闭页面也会存在</p>
+<p>2、可以多窗口（页面）共享（同一浏览器可以共享）</p>
+<ol start="3">
+<li>以键值对的形式存储使用</li>
+</ol>
+<p>存储数据：</p>
+<pre><code class="lang-javascript">localStorage.setItem(key, value)
+</code></pre>
+<p>获取数据：</p>
+<pre><code class="lang-javascript">localStorage.getItem(key)
+</code></pre>
+<p>删除数据：</p>
+<pre><code class="lang-javascript">localStorage.removeItem(key)
+</code></pre>
+<p>清空数据：(所有都清除掉)</p>
+<pre><code class="lang-javascript">localStorage.clear()
+</code></pre>
+<h3 id="-">案例：记住用户名</h3>
+<p>如果勾选记住用户名， 下次用户打开浏览器，就在文本框里面自动显示上次登录的用户名</p>
+<h4 id="-">案例分析</h4>
+<ol>
+<li><p>把数据存起来，用到本地存储</p>
+</li>
+<li><p>关闭页面，也可以显示用户名，所以用到localStorage</p>
+</li>
+<li><p>打开页面，先判断是否有这个用户名，如果有，就在表单里面显示用户名，并且勾选复选框</p>
+</li>
+<li><p>当复选框发生改变的时候change事件</p>
+</li>
+<li><p>如果勾选，就存储，否则就移除</p>
+</li>
+</ol>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
