@@ -1,0 +1,1307 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:JavaScript基础全家桶</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h2 id="-">编程语言及计算机基础</h2>
+<ul>
+<li>程序：用特定规则编写的让计算机帮我们完成某些任务的指令</li>
+<li>编程语言：<ul>
+<li>编程语言分类: 机器语言  汇编语言  高级语言</li>
+<li>js与html/css区别：js逻辑性较强主动执行，html/css被动地被读取逻辑性相对较弱</li>
+</ul>
+</li>
+<li><p>计算机基础：</p>
+<ul>
+<li>计算机组成：<ul>
+<li>硬件  CPU+存储系统(内存+外存)+输入输出系统</li>
+<li>软件  系统软件+应用软件</li>
+</ul>
+</li>
+<li>数据存储  单位: bit 位  byte 字节   k 1024字节  M 1024k  G  1024M  T 1024G</li>
+</ul>
+</li>
+<li><p>程序执行过程 硬盘--&gt; 内存 --&gt;cpu</p>
+</li>
+</ul>
+<h2 id="-">程序学习心法</h2>
+<ul>
+<li>放松，保持好奇，探索的心态</li>
+<li>认真听讲,积极互动,跟上</li>
+<li>多总结（what how why）</li>
+<li>多练习多测试 (程序像说话，需要大量说，说出才算数，不说都是空)</li>
+</ul>
+<h2 id="js-">js简介</h2>
+<ul>
+<li>历史：1995发明</li>
+<li>作用：最初用于实现表单验证，后面被广泛用于实现各种页面交互包括服务端、物联网等等</li>
+<li>和html/css关系：html/css分别控制结构和样式, js控制整个页面的交互效果,js可以改变html及css</li>
+<li>执行过程: 浏览器分为 渲染引擎及js执行引擎，js代码由js引擎逐行解释执行。</li>
+<li>组成：ECMAScript(ES)  +  DOM +  BOM</li>
+</ul>
+<h2 id="js-">js基本使用</h2>
+<h3 id="js-">js语句书写位置</h3>
+<ul>
+<li>行内式(不推荐使用)</li>
+<li>内嵌式 <script>alert(&#39;Hello WORLD!&#39;)</script></li>
+<li>外部 <script src="hello.js"></script>  注意:此时script标签之间不能写代码</li>
+</ul>
+<h3 id="js-">js注释</h3>
+<ul>
+<li>单行 </li>
+<li>多行</li>
+</ul>
+<pre><code class="lang-js">// alert(&#39;Hello WORLD!&#39;) 单行注释 快捷键:  ctrl+/   再次 ctrl+/取消注释
+/*alert(&#39;Hello WORLD!&#39;)*/  //多行注释，使用相对较少  快捷键:  shift+ctrl+ / 
+</code></pre>
+<h3 id="js-">js基本输入输出</h3>
+<pre><code class="lang-js">prompt(&#39;请输入&#39;)
+alert(&#39;hello&#39;) //弹框输出
+console.log(&#39;helo&#39;) // 控制台输出
+</code></pre>
+<h2 id="js-">js变量</h2>
+<ul>
+<li><p>变量作用  存放数据</p>
+</li>
+<li><p>变量声明  var  age;</p>
+</li>
+<li><p>变量赋值  age = 20;     //实际使用时 声明和赋值 常 写到一起var age = 20; console.log(age)</p>
+</li>
+<li><p>变量语法扩展:</p>
+<ul>
+<li>多次赋值时以最后一次为准</li>
+<li>可同时声明多个变量 如 var a,b=1,c;</li>
+<li>未声明及赋值 直接输出 时 报错</li>
+<li>只声明 不赋值  值为undefined</li>
+<li>不声明 直接赋值 不报错，但强烈不建议这样用</li>
+</ul>
+</li>
+<li><p>变量命名规则：</p>
+<ul>
+<li>只能由 英文大小写字母、数字、$、_构成，且不能以数字开头</li>
+<li>不能使用关键字/保留字 如 var for while  do class ...</li>
+<li>见名知意（英文单词或拼音）</li>
+<li>包含多个单词时 建议 用驼峰法</li>
+<li>严格区分大小写 Age和age是两个变量</li>
+<li>部份名称有特殊含义(不是关键字),尽量不要作为变量名 如name  top</li>
+</ul>
+</li>
+<li><p>案例</p>
+<pre><code class="lang-js">// 交换任意两个变量的值
+var a = 1,b=2;
+var tmp = a;
+a = b;
+b = tmp;// 完成交换
+</code></pre>
+</li>
+</ul>
+<h2 id="js-">js数据类型及类型转换</h2>
+<h3 id="-">数据类型</h3>
+<p>问题:</p>
+<p>1 js数据类型有哪些？并列举各种数据类型中的1-2个值</p>
+<p>2 数据类型转换有哪两种方式？</p>
+<p>可分为两大类:</p>
+<ul>
+<li>简单数据类型：number string boolean  undefined null</li>
+<li>复杂数据类型: object</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>举例</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number</td>
+<td>1 1.5  2.5e3  015  0x2f</td>
+<td>Number.MAX_VALUE ... NaN  isNaN()判断是否为非数字</td>
+</tr>
+<tr>
+<td>string</td>
+<td>&#39;abc&#39;  &#39;中国&#39;</td>
+<td>字符串.length 获取字符串长度  + 两边有一个字符串表示拼接  \n 换行   \为转义字符</td>
+</tr>
+<tr>
+<td>boolean</td>
+<td>true  false</td>
+<td>和数字 相加时 true相当于1  false相当于0</td>
+</tr>
+<tr>
+<td>undefined</td>
+<td>undefined</td>
+<td>和任何非字符串类型相加均得到NaN</td>
+</tr>
+<tr>
+<td>null</td>
+<td>null</td>
+<td>typeof null //object   和数字相加 相当于0</td>
+</tr>
+<tr>
+<td>object</td>
+<td>{name:&#39;zhangsan&#39;,age:18}  [1,2,3]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">数据类型检测</h3>
+<pre><code class="lang-js">typeof  变量/字面量  //得到的结果均为字符串类型  &#39;string&#39;  &#39;number&#39;
+</code></pre>
+<h3 id="-">数据表现形式</h3>
+<ul>
+<li>字面量/直接量：13  &#39;abc&#39;  true  null undefined  {}  []</li>
+<li>变量：age  uname  必须先声明再使用</li>
+</ul>
+<h3 id="-">类型转换</h3>
+<pre><code class="lang-js">//其他类型转成字符串
+String(123)  //&#39;123&#39;  显式转换
+123+&#39;&#39;  // &#39;123&#39;    隐式转换
+
+//其他类型转成数字型
+parseInt(&#39;123a&#39;) //123
+parseFloat(&#39;123.4abc&#39;) // 123.4
+Number(&#39;123&#39;)  // 123
+&#39;123&#39;-0  // 123
+
+//其他类型转换成bool型，0 &#39;&#39; null undefined NaN均相当于false,其他数值相当于true
+Boolean(123) // true
+</code></pre>
+<h2 id="1-">1. 运算符（操作符）</h2>
+<h3 id="1-">1.运算符分类</h3>
+<p>运算符（operator）也被称为操作符，是用于实现赋值、比较和执行算数运算等功能的符号。</p>
+<ul>
+<li>算数运算符</li>
+<li>递增和递减运算符</li>
+<li>比较运算符</li>
+<li>逻辑运算符</li>
+<li>赋值运算符</li>
+</ul>
+<h3 id="2-">2.算数运算符</h3>
+<p><strong>加法，减法，乘法 除法 取余数</strong>
+用法：
+<img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片1.png" alt=""></p>
+<h3 id="3-">3.递增和递减运算符</h3>
+<p>概述：递增（++）和递减（--），如果需要反复给数字变量添加或减去 1，可以使用递增（++）和递减（ -- ）运算符来完成。</p>
+<pre><code class="lang-js">var num = 10;
+alert(++num + 10); // 21
+</code></pre>
+<pre><code class="lang-js">var num = 10;
+alert(10 + num++); // 20
+</code></pre>
+<h3 id="4-">4 比较运算符</h3>
+<ul>
+<li><p>比较运算符概述</p>
+<pre><code>概念：比较运算符（关系运算符）是两个数据进行比较时所使用的运算符，比较运算后，会返回一个布尔值（true / false）作为比较运算的结果。
+</code></pre><p><img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片2.png" alt=""></p>
+</li>
+<li><p>等号比较</p>
+<p><img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片3.png" alt=""></p>
+<pre><code class="lang-js">console.log(18 == &quot;18&quot;);
+console.log(18 === &quot;18&quot;);
+</code></pre>
+</li>
+</ul>
+<h3 id="5-">5 逻辑运算符</h3>
+<ul>
+<li>逻辑运算符概述
+概念：逻辑运算符是用来进行布尔值运算的运算符，其返回值也是布尔值。后面开发中经常用于多个条件的判断</li>
+</ul>
+<p><img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片4.png" alt=""></p>
+<h3 id="6-">6 赋值运算符</h3>
+<pre><code>概念：用来把数据赋值给变量的运算符。
+</code></pre><p><img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片9.png" alt=""></p>
+<pre><code class="lang-js">var age = 10;
+age += 5;  // 相当于 age = age + 5;
+age -= 5;  // 相当于 age = age - 5;
+age *= 10; // 相当于 age = age * 10;
+</code></pre>
+<h3 id="7-">7 运算符优先级</h3>
+<p><img src="E:\传智播客md笔记\6.js\day2-运算符ifeles循环\images\图片10.png" alt=""></p>
+<ul>
+<li>一元运算符里面的逻辑非优先级很高</li>
+<li>逻辑与比逻辑或优先级高</li>
+</ul>
+<h2 id="2-">2 - 流程控制</h2>
+<h3 id="1-">1 流程控制概念</h3>
+<p>在一个程序执行的过程中，各条代码的执行顺序对程序的结果是有直接影响的。很多时候我们要通过控制代码的执行顺序来实现我们要完成的功能。</p>
+<p>简单理解：<strong>流程控制就是来控制代码按照一定结构顺序来执行</strong></p>
+<p>流程控制主要有三种结构，分别是<strong>顺序结构</strong>、<strong>分支结构</strong>和<strong>循环结构</strong>，代表三种代码执行的顺序。</p>
+<h3 id="2-">2.使用语法</h3>
+<ul>
+<li>if语句</li>
+</ul>
+<pre><code class="lang-j">// 条件成立执行代码，否则什么也不做
+if (条件表达式) {
+    // 条件成立执行的代码语句
+}
+</code></pre>
+<ul>
+<li>if else语句（双分支语句）</li>
+</ul>
+<pre><code class="lang-js">// 条件成立  执行 if 里面代码，否则执行else 里面的代码
+if (条件表达式) {
+    // [如果] 条件成立执行的代码
+} else {
+    // [否则] 执行的代码
+}
+
+</code></pre>
+<ul>
+<li>if else if语句（多分支语句）</li>
+</ul>
+<pre><code class="lang-js">// 适合于检查多重条件。if (条件表达式1) {    语句1；} else if (条件表达式2)  {    语句2；} else if (条件表达式3)  {   语句3； ....} else {    // 上述条件都不成立执行此处代码}
+</code></pre>
+<h3 id="3-">3 三元表达式</h3>
+<ul>
+<li><p>语法结构</p>
+<pre><code class="lang-js">表达式1 ? 表达式2 : 表达式3;
+</code></pre>
+</li>
+<li><p>执行思路</p>
+<ul>
+<li>如果表达式1为 true ，则返回表达式2的值，如果表达式1为 false，则返回表达式3的值</li>
+<li>简单理解： 就类似于  if  else （双分支） 的简写</li>
+</ul>
+</li>
+</ul>
+<h2 id="-">运算符及表达式</h2>
+<p><em>运算符即让数据进行运算的符号，数据及运算符构成的式子称为表达式，广义上所有能返回某个值的语句都可称为表达式</em> 如变量,字面量,函数调用 等</p>
+<h3 id="-">算术</h3>
+<p>问题:</p>
+<p>1 有哪几种算术运算符？+-*/%</p>
+<p>2  思考:如何证明一个数是偶数?  n%2==0</p>
+<pre><code class="lang-js">+ - *(乘) /(除) %(求余) 算术运算符 算术表达式 计算所得的结果即为算术表达式的值
+注意：小数与小数作算术运算会有误差(原因；计算机内数据底层为二进制表示)，因此小数算术运算后得到的结果和另一个值做比较运算时 可能会出问题 
+0.1+0.2==0.3  // false
+5%8 //5
+10%3 //1
+</code></pre>
+<h3 id="-">自增自减 *</h3>
+<p>问题:</p>
+<p>1 ++a 和 a++有何异同？相同点:都能让变量自增1 不同点:表达式的值不同++a的值即为a+1  a++的值为a</p>
+<pre><code class="lang-js">//a++ ++a均可使变量自增1,区别在于a++表达式的值为a的初始值  ++a表达式的值为a+1之后的值,a-- --a同理
+var a=0;
+console.log(a++);//输出0,a变成1
+console.log(++a);//输出2,a变成2
+
+</code></pre>
+<h3 id="-">比较(关系)</h3>
+<p>问题:</p>
+<p>1 比较运算符计算后的到的结果是什么数据类型?</p>
+<p>2  ==和=有何区别?</p>
+<pre><code class="lang-js">//比较表达式的值均为true或false
+表达式1==表达式2 相等(只比较 值，不要求数据类型一致)
+表达式1!=表达式2 不等(只比较 值，不要求数据类型一致，值不相等时返回true,否则返回false)
+表达式1===表达式2 全等(同时比较值和数据类型，仅当两者均相等时结果才为true)
+表达式1!==表达式2 不全等(同时比较值和数据类型，两者有一个不相等时结果即为true)
+&gt;  &lt;  &gt;=  &lt;=
+&#39;12&#39;&gt; &#39;2&#39; //false 两个字符串作比较时 按字典排序规则 比较
+&#39;12&#39;&gt;2 //true 字符串和数字比较时 会发生隐式转换，将字符串转化为数字 来比较
+</code></pre>
+<h3 id="-">逻辑</h3>
+<p>问题:</p>
+<p>1 有哪几种逻辑运算符?计算规则分别是？</p>
+<p>2 逻辑与中断何时发生?</p>
+<p>3 逻辑或中断何时发生?</p>
+<pre><code class="lang-js">与:&amp;&amp;  或:||  非:!
+表达式1 &amp;&amp; 表达式2   构成逻辑与表达式，只要表达式1/2中有一个为false，则整个逻辑表达式的值为false,仅当表达式1/2均为true时，逻辑表达式的值才为true
+表达式1 || 表达式2   构成逻辑或表达式，只要表达式1/2中有一个为true，则整个逻辑表达式的值为true,仅当表达式1/2均为false时，逻辑表达式的值才为false
+!表达式 构成逻辑非表达式  表达式值为true时,整个逻辑非表达式的值为false，反之为true
+
+逻辑表达式短路现象
+表达式1 &amp;&amp; 表达式2  当表达式1为false时（整个逻辑表达式的值已确定），表达式2不会执行
+表达式1 || 表达式2  当表达式1为true时（整个逻辑表达式的值已确定），表达式2不会执行
+3&amp;&amp;1 //1
+0&amp;&amp;100&amp;&amp;1000  //0
+1||10000 //1
+0||0.5  //0.5
+
+var a=9,b;
+(a&lt;10)&amp;&amp;(b=a);
+console.log(&#39;b的值为&#39;+b) //9
+
+var a=9,b;
+(a&gt;=10)&amp;&amp;(b=a);
+console.log(&#39;b的值为&#39;+b) // undefined
+</code></pre>
+<h3 id="-">赋值</h3>
+<p>问题:</p>
+<p>赋值运算符得到的结果是什么?</p>
+<pre><code class="lang-js">=  a=2   // 将2赋值给变量a，赋值运算符 对应 赋值表达式 赋给变量的值即为赋值表达式的值
++=  a+=2   // 相当于a=a+2
+-=  a-=2   // 相当于a=a-2
+*=  a*=2   // 相当于a=a*2
+/=  a/=5   // 相当于a=a/5
+%=  a%=3   // 相当于a=a%3
+
+//a+=1 与 a++的区别:
+var a=&#39;1&#39;;
+a+=1 与 a=a+1 完全一致 赋值结束后a为&#39;11&#39;
+a++ 赋值结束后a为2
+</code></pre>
+<h3 id="-">条件</h3>
+<pre><code>表达式1?表达式2:表达式3 //当表达式1为true时，执行表达式2且表达式2的值为三元表达式整体的值，否则执行表达式3且表达式3的值为整体三元表达式的值，当if...else...中代码较简单时，可用三元表达式实现
+var a = 2,b = 3;
+var c = a&gt;b?a-b:b-a;
+console.log(c)//1
+</code></pre><h3 id="-">逗号运算符(了解)</h3>
+<pre><code class="lang-js">表达式1,表达式2  构成逗号表达式  值为 最后一个表达式的值
+</code></pre>
+<h3 id="-">位运算（了解）</h3>
+<pre><code class="lang-js">&amp; 按位与
+| 按位或
+&gt;&gt; 右移位
+&lt;&lt; 左移位
+</code></pre>
+<h3 id="-">运算符优先级</h3>
+<pre><code class="lang-js">()&gt;一元（! ++ --）&gt;算术&gt;关系(比较)&gt;逻辑&gt;条件&gt;赋值&gt;逗号
+//注意:关系运算符中==及===相对而言优先级更低  逻辑运算符中 &amp;&amp;优先级高于||
+</code></pre>
+<h2 id="-">流程控制-分支结构</h2>
+<h3 id="-">概念</h3>
+<p><em>通过某些语句控制代码的执行顺序即称为流程控制，三种流程控制结构:顺序(默认)，分支,循环</em></p>
+<h3 id="if-">if 语句</h3>
+<pre><code class="lang-js">基本用法:
+if(表达式){
+    语句  //当()中表达式为true时执行 语句，否则不执行
+}
+双分支:
+if(表达式){
+   语句1  // 当()中表达式为true时执行语句1
+}else{
+    语句2 // 否则执行语句2
+}
+多分支
+if(表达式1){
+   语句1     // 表达式1为true时执行语句1
+}else if(表达式2){
+   语句2     // 表达式2为true时执行语句2 
+}else if(表达式3){
+   语句3    // 表达式3为true时执行语句3     
+}
+...
+else{
+   语句n  // 上述表达式都为false时执行语句n，else也可省略，若省略则可能所有分支都不执行
+}
+</code></pre>
+<h3 id="-">三元表达式</h3>
+<pre><code class="lang-js">格式:表达式1?表达式2:表达式3； 
+说明:当表达式1为true时，三元表达式的值 为表达式2的值，否则为表达式3的值
+var a = 10;
+var x = a&gt;=10?a-1:a+1;
+console.log(x) // 9
+
+// 用户输入0~59之间的一个数字
+// 如果数字小于10，则在这个数字前面补0,（加0 拼接） 否则  不做操作
+// 用一个变量接受这个返回值，输出
+var time = prompt(&#39;请您输入一个 0 ~ 59 之间的一个数字&#39;);
+// 三元表达式   表达式 ？ 表达式1 ：表达式2 
+var result = time &lt; 10 ? &#39;0&#39; + time : time; //   把返回值赋值给一个变量
+alert(result);
+
+</code></pre>
+<h3 id="switch-">switch语句</h3>
+<pre><code class="lang-js">//switch是多分支语句的另一种写法
+switch(表达式){
+    case 值1:语句1;break;
+    case 值2:语句2;break;
+    ...
+    default:默认执行语句;
+}
+//注意:
+//switch后()中表达式与case后面的值 按 全等===匹配，需要注意数据类型一致
+//switch 中break起跳出switch结构的作用。可省略，若省略，则匹配到的case语句执行完后会继续执行下面的语句，直到遇到break或执行完所有case才会跳出switch结构。
+
+//switch与if...else if...结构比较:
+//switch语句适用于多分支判断条件为等于 某个具体的值 时，if...else if...适用于于分支判断条件为 在某个范围时，总体上if...else if应用范围更广，能用switch实现的都能用if...else if...实现
+//当判断条件为等于某些具体的值，且分支较多时用switch结构更清晰，且效率更高
+</code></pre>
+<h2 id="for-">for循环</h2>
+<p>问题:</p>
+<p>1 for(){}结构中()内的三句代码分别起什么作用？循环变量初始化  循环条件  操作表达式</p>
+<p>2 执行顺序如何?分别会执行几次?  变量初始化(执行一次)-&gt;循环条件(多次)-&gt;循环体(多次)-&gt;操作表达式(多次)</p>
+<p>3 {}内的代码会执行几次？由循环变量初始值、循环条件、操作表达式共同决定</p>
+<h3 id="for-">for循环执行过程</h3>
+<pre><code class="lang-js">for(循环变量初始化;条件表达式;循环变量更新表达式){
+    循环体
+}
+其他语句;
+
+执行步骤:
+1 循环变量初始化 如var i=1;
+2 条件表达式 如i&lt;=10;
+3 当条件表达式为true时执行循环体,为false时跳出循环执行其他语句
+4 当条件表达式为true且循环体执行完毕后 执行循环变量更新表达式 如 i++ 
+重复执行 2 3 4
+
+举例
+for(var i=1;i&lt;=3;i++){
+    console.log(i)
+}
+
+1 变量初始化 var i=1;
+2 执行i&lt;=3 此时为true
+3 执行循环体  输出1
+4 执行i++ i变成2
+2 执行i&lt;=3 此时仍为true
+3 执行循环体  输出2
+4 执行i++ i变成3
+2 执行i&lt;=3 此时仍为true
+3 执行循环体  输出3
+4 执行i++ i变成4
+2 执行i&lt;=3 此时为false,跳出(结束)循环
+
+// 通过断点调试分析代码执行过程
+f12或点击右键检查打开调试工具-&gt;Sources-&gt;找到js代码点击行号设置断点-&gt;刷新-&gt;f11或f9单步调试-&gt;鼠标光标移到代码中变量上或在watch中添加变量查看变量的值(若每一步各个变量的值都符合预期则程序最终的结果肯定是对的)
+</code></pre>
+<h3 id="-for-">多重for循环</h3>
+<p>问题:</p>
+<p>1 内循环可视为外循环的循环体么?  是的</p>
+<p>2  外循环执行一次，内循环执行多少次？外循环执行一次，内循环执行全部</p>
+<pre><code class="lang-js">for(外循环变量初始化;外循环条件;外循环变量操作语句){
+    for(内循环变量初始化;内循环条件;内循环变量操作语句){
+      内层循环语句  
+    }
+    外层循环语句
+}
+// 外循环执行一次，内循环执行一轮
+</code></pre>
+<h2 id="while-do-while-">while及do while循环</h2>
+<pre><code class="lang-js">循环变量初始化
+while(条件表达式){
+    循环语句；
+    循环变量操作语句；
+}
+//当条件表达式为true时{}中语句执行，否则跳出循环
+循环变量初始化
+do{
+    循环语句；
+    循环变量操作语句；
+}while(条件表达式);
+//do while循环至少会执行一次，而while/for循环可能一次都不执行
+
+//while循环适用于 循环条件比较灵活的场景 而for循环适用于循环次数比较确定的场景
+</code></pre>
+<h2 id="break-continue-">break及continue关键字</h2>
+<pre><code class="lang-js">break用于跳出当前循环(默认不会跳出外层循环);
+当break用在switch结构中时只会跳出switch不会跳出循环
+continue用于结束本次循环直接进入下一次循环
+</code></pre>
+<h2 id="1-">1. 数组</h2>
+<h3 id="1-1-">1.1 数组的概念</h3>
+<ol>
+<li><p>作用</p>
+</li>
+<li><p>数组（Array）可以把一组相关的数据一起存放，并提供方便的访问(获取）方式。</p>
+</li>
+<li><p>什么是数组</p>
+</li>
+<li><p>数组是指一组数据有序的集合，其中的每个数据被称作元素，在数组中可以存放任意类型的元素。数组是一种将一组数据存储在单个变量名下的优雅方式。</p>
+</li>
+</ol>
+<h3 id="2-2-">2.2 数组的创建</h3>
+<ol>
+<li>（new）方法</li>
+</ol>
+<pre><code class="lang-js">var 数组名 = new Array();
+var arr = new Array(); // 创建一个新的空数组
+
+// 往数组里面添加元素
+数组名[索引值] = 值;
+</code></pre>
+<ol start="2">
+<li>利用数组字变量创建数组 []</li>
+</ol>
+<pre><code class="lang-js">//1. 使用数组字面量方式创建空的数组
+var 数组名 = [];
+//2. 使用数组字面量方式创建带初始值的数组
+var 数组名 = [&quot;小白&quot;, &quot;小黑&quot;, &quot;大黄&quot;, &quot;瑞奇&quot;];
+</code></pre>
+<ol start="3">
+<li>数组元素的类型</li>
+</ol>
+<p>数组中可以存放任意类型的数据，例如字符串，数字，布尔值等。</p>
+<pre><code class="lang-js">var arrStus = [&quot;小白&quot;, 12, true, 28.9];
+var kiss = [1, 2, &quot;字符串型&quot;, true]; //逗号分隔
+</code></pre>
+<h3 id="2-3-">2.3 获取数组中的元素</h3>
+<p>注意事项：</p>
+<ol>
+<li>来访问数组元素的序号（数组下标从 0 开始）</li>
+<li>如果访问时数组没有和索引值对应的元素，则得到的值是 undefined</li>
+<li>可以通过“<strong>数组名[索引号]</strong>”的形式来获取数组中的元素。</li>
+</ol>
+<pre><code class="lang-js">var kiss = [1, 2, &quot;字符串型&quot;, true];
+//逗号分隔
+// 数组名 [] 排列 0 ， 1 ，2 ，3 ，4
+//用来访问数组元素的序号（数组下标从 0 开始）
+//获取某个元素
+document.write(kiss[2]); //  字符串型
+document.write(kiss[5]); // undefinde
+//没有第五个元素，所以输出 undefinde
+console.log(kiss); // 缺点 ：输出 kiss[4] 需要点击打开才能到数组内容
+</code></pre>
+<h3 id="4-">4.遍历数组</h3>
+<ol>
+<li><p>遍历</p>
+</li>
+<li><p>目的 ： <strong>把数组的元素从头扫尾访问一遍</strong></p>
+</li>
+<li><p>方法：通过 for 循环可以遍历数组</p>
+</li>
+</ol>
+<pre><code class="lang-js">var arr = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+for (var i = 0; i &lt; arr.length; i++) {
+  console.log(arr[i]);
+  // 输出结果
+  // red
+  // green
+  // blue
+}
+</code></pre>
+<ol start="2">
+<li><p>获取数组长度</p>
+</li>
+<li><p>与获取字符串方法语法相同</p>
+</li>
+<li>使用“<strong>数组名.length</strong>”可以访问数组元素的数量（数组长度）</li>
+</ol>
+<pre><code class="lang-js">var arrStus = [1, 2, 3];
+alert(arrStus.length); // 输出 结果 3
+</code></pre>
+<p>注意 ：</p>
+<ul>
+<li><p>此处数组的长度是数组元素的个数 ，不要和数组的索引号混淆。</p>
+</li>
+<li><p>当我们数组里面的元素个数发生了变化，这个 length 属性跟着一起变化</p>
+</li>
+</ul>
+<p>数组的 length 属性可以被修改：</p>
+<ul>
+<li><p>如果设置的 length 属性值大于数组的元素个数，则会在数组末尾出现空白元素；</p>
+</li>
+<li><p>如果设置的 length 属性值小于数组的元素个数，则会把超过该值的数组元素删除</p>
+</li>
+</ul>
+<h3 id="5-">5. 给数组新加元素</h3>
+<ul>
+<li><p>数组中可以通过以下方式在数组的末尾插入新元素：</p>
+<p><strong>语法</strong></p>
+</li>
+</ul>
+<pre><code class="lang-js">数组[数组.length] = 新数据;
+</code></pre>
+<p><strong>案例</strong></p>
+<pre><code class="lang-js">var arr = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];
+arr[arr.length] = &quot;yellow&quot;;
+for (var i = 0; i &lt; arr.length; i++) {
+  console.log(arr[i]);
+}
+</code></pre>
+<h3 id="6-">6.案例</h3>
+<ol>
+<li>数组最大值</li>
+</ol>
+<pre><code class="lang-js">var arr = [2, 6, 1, 77, 55, 52, 777];var max = arr[0];for (var i = 1; i &lt; arr.length; i++) {  //i=0时会与自身比较  i=1开始 减少与自身的比较  if (arr[i] &gt; max) {    max = arr[i];  }}document.write(max);
+</code></pre>
+<ol start="2">
+<li>数据中数组求和和平均数</li>
+</ol>
+<pre><code class="lang-js">// 案例  数据中数组求和和平均数var he = [2, 6, 1, 7, 4];var a = 0; //和var b = 0; //平均值for (var i = 0; i &lt; he.length; i++) {  a += he[i];  b = a / he.length;}document.write(a, b);
+</code></pre>
+<ol start="3">
+<li>数字转换为字符串</li>
+</ol>
+<pre><code class="lang-js">var arr = [&quot;red&quot;, &quot;green&quot;, &quot;blue&quot;];var str = &quot;&quot;;var sep = &quot;|&quot;;for (var i = 0; i &lt; arr.length; i++) {  str += arr[i] + sep;}console.log(str);
+</code></pre>
+<h2 id="2-">2.函数</h2>
+<h3 id="1-">1.什么是函数</h3>
+<p>函数：就是<strong>封装了一段可被重复调用执行的代码块</strong>。通过此代码块可以<strong>实现大量代码的重复使用</strong>。</p>
+<h3 id="2-">2.函数的使用</h3>
+<p><strong>先声明后调用,不调用不执行</strong></p>
+<ol>
+<li>声明函数</li>
+</ol>
+<pre><code class="lang-js">function 函数名() {  //函数体代码}
+</code></pre>
+<ol start="2">
+<li>调用函数</li>
+</ol>
+<pre><code class="lang-js">// 调用函数函数名(); // 通过调用函数名来执行函数体代码
+</code></pre>
+<p><strong>案例</strong></p>
+<pre><code class="lang-js">function getSum() {  var sumNum = 0;  for (var i = 1; i &lt;= 100; i++) {    sumNum += i;  }  alert(sumNum);}getSum(); //调用函数
+</code></pre>
+<h3 id="3-">3. 函数的参数</h3>
+<pre><code>在声明函数时，可以在函数名称后面的小括号中添加一些参数，这些参数被称为形参，而在调用该函数时，同样也需要传递相应的参数，这些参数被称为实参。
+</code></pre><ul>
+<li><p>形参：函数定义时设置接收调用时传入</p>
+</li>
+<li><p>实参：函数调用时传入小括号内的真实数据
+参数的作用 : <strong>在函数内部某些值不能固定，我们可以通过参数在调用函数时传递不同的值进去。</strong></p>
+</li>
+</ul>
+<pre><code class="lang-js"> // 带参数的函数声明 function 函数名(形参1, 形参2 , 形参3...) { // 可以定义任意多的参数，用逗号分隔   // 函数体 } // 带参数的函数调用 函数名(实参1, 实参2, 实参3...);
+</code></pre>
+<h3 id="4-">4.函数的返回值</h3>
+<p>返回值：函数调用整体代表的数据；函数执行完成后可以通过return语句将指定数据返回 。</p>
+<pre><code class="lang-js">// 声明函数function 函数名（）{    ...    return  需要返回的值；}// 调用函数函数名();    // 此时调用函数就可以得到函数体内return 后面的值
+</code></pre>
+<p>return ：<strong>不仅可以退出循环，还能够返回 return 语句中的值，同时还可以结束当前的函数体内的代码</strong></p>
+<h2 id="1-arguments-">1.arguments 的使用</h2>
+<p>当不确定有多少个参数传递的时候，可以用 arguments 来获取。在 JavaScript 中，arguments 实际上它是当前函数的一个内置对象。所有函数都内置了一个 arguments 对象，arguments 对象中存储了传递的所有实参。</p>
+<ul>
+<li>具有 length 属性</li>
+<li>按索引方式储存数据</li>
+<li>不具有数 组的 push , pop 等方法
+注意：在函数内部使用该对象，用此对象获取函数调用时传的实参。</li>
+</ul>
+<pre><code class="lang-js">function fn() {
+  console.log(arguments);
+  // console.log(arguments.length);
+  // console.log(arguments[2]);
+
+  // 我们可以按照数组的方式遍历arguments
+  //   for (var i = 0; i &lt; arguments.length; i++) {
+  // console.log(arguments[i]);
+  //   }
+}
+fn(1, 2, 3);
+</code></pre>
+<p><strong>案例</strong></p>
+<pre><code class="lang-js">//利用函数求和
+function getSum() {
+  var sum = 0;
+  for (let i = 0; i &lt; arguments.length; i++) {
+    sum += arguments[i];
+  }
+  return sum;
+}
+console.log(getSum(1, 2, 3));
+</code></pre>
+<h2 id="2-">2.函数的两种声明方式</h2>
+<ul>
+<li><p>自定义函数方式(命名函数)</p>
+<p>利用函数关键字 function 自定义函数方式</p>
+<pre><code class="lang-js">// 声明定义方式
+function fn() {...}
+// 调用
+fn();
+</code></pre>
+<ul>
+<li>因为有名字，所以也被称为命名函数</li>
+<li>调用函数的代码既可以放到声明函数的前面，也可以放在声明函数的后面</li>
+</ul>
+</li>
+<li><p>函数表达式方式(匿名函数）</p>
+<p>利用函数表达式方式的写法如下：</p>
+<pre><code class="lang-js">// 这是函数表达式写法，匿名函数后面跟分号结束
+var fn = function(){...}；
+// 调用的方式，函数调用必须写到函数体下面
+fn();
+</code></pre>
+<ul>
+<li>因为函数没有名字，所以也被称为匿名函数</li>
+<li>这个 fn 里面存储的是一个函数</li>
+<li>函数表达式方式原理跟声明变量方式是一致的</li>
+<li>函数调用的代码必须写到函数体后面</li>
+</ul>
+</li>
+<li><p>自定义函数方式(命名函数)</p>
+<p>利用函数表达式方式的写法如下：</p>
+<pre><code class="lang-js">// 声明定义方式
+function fn() {...}
+// 调用
+fn();
+</code></pre>
+<p>因为有名字，所以也被称为命名函数
+调用函数的代码既可以放到声明函数的前面，也可以放在声明函数的后面</p>
+</li>
+<li><p>函数表达式方式(匿名函数）</p>
+</li>
+<li><p>自定义函数方式(命名函数)</p>
+<p>利用函数关键字 function 自定义函数方式。</p>
+</li>
+<li><p>函数表达式方式(匿名函数）</p>
+</li>
+</ul>
+<h2 id="3-">3.作用域</h2>
+<h3 id="3-1-">3.1 作用域概述</h3>
+<p>通常来说，一段程序代码中所用到的名字并不总是有效和可用的，而限定这个名字的可用性的代码范围就是这个名字的作用域。作用域的使用提高了程序逻辑的局部性，增强了程序的可靠性，减少了名字冲突。</p>
+<p>JavaScript（es6 前）中的作用域有两种：</p>
+<ul>
+<li>全局作用域</li>
+<li>局部作用域（函数作用域）</li>
+</ul>
+<h3 id="3-2-">3.2 全局作用域</h3>
+<pre><code>作用于所有代码执行的环境(整个 script 标签内部)或者一个独立的 js 文件。
+</code></pre><h3 id="3-3-">3 .3 局部作用域</h3>
+<pre><code>作用于函数内的代码环境，就是局部作用域。 因为跟函数有关系，所以也称为函数作用域。
+</code></pre><h2 id="4-">4 作用域链</h2>
+<p>只要是代码都一个作用域中，写在函数内部的局部作用域，未写在任何函数内部即在全局作用域中；如果函数中还有函数，那么在这个作用域中就又可以诞生一个作用域；根据在<strong>[内部函数可以访问外部函数变量]</strong>的这种
+案例分析 1：</p>
+<pre><code class="lang-js">function f1() {
+  var num = 123;
+  function f2() {
+    console.log(num);
+  }
+  f2();
+}
+var num = 456;
+f1();
+</code></pre>
+<p><img src="E:/传智播客md笔记/6.js/day5-作用域+创建对象+遍历对象/images/图片1.png" alt=""></p>
+<pre><code>作用域链：采取就近原则的方式来查找变量最终的值。
+</code></pre><pre><code class="lang-js">var a = 1;function fn1() {  var a = 2;  var b = &quot;22&quot;;  fn2();  function fn2() {    var a = 3;    fn3();    function fn3() {      var a = 4;      console.log(a); //a的值 ?      console.log(b); //b的值 ?    }  }}fn1();
+</code></pre>
+<p><img src="E:/传智播客md笔记/6.js/day5-作用域+创建对象+遍历对象/images/图片2.png" alt=""></p>
+<h2 id="5-">5 预解析</h2>
+<p>解析器解析 JavaScript 代码时分为两步，预解析和代码执行</p>
+<ul>
+<li>预解析：在当前方作用域下，js 代码执行之前，浏览器会默认把带有 var 和 function 声明的变量在内存中进行提前声明或者定义。</li>
+<li><p>代码执行：从上往下依次执行
+<strong>预解析会把变量和函数的声明在代码执行之前执行完成。</strong></p>
+</li>
+<li><p>变量预解析。</p>
+</li>
+</ul>
+<pre><code class="lang-js">console.log(num); // 结果是多少？var num = 10;//undefined
+</code></pre>
+<ol start="2">
+<li>函数预解析。</li>
+</ol>
+<p><code>`</code>js fn();
+function fn() {  console.log(&quot;打印&quot;);}//输出 打印</p>
+<pre><code>
+3. 函数表达式声明函数问题
+
+```js
+fn();var fn = function () {  console.log(&quot;想不到吧&quot;);};//报错“fn is not a function&quot;
+</code></pre><h2 id="6-">6.对象</h2>
+<h3 id="6-1-">6.1 对象</h3>
+<ul>
+<li>什么是对象？
+在 JavaScript 中，对象是一组无序的相关属性和方法的集合，所有事物都是对象，例如：字符串，数组，数值，函数</li>
+</ul>
+<h3 id="6-2-">6.2 创建函数的三种方式</h3>
+<h4 id="6-2-1-">6.2.1 利用字面量创建对象</h4>
+<p><strong>使用对象字面量创建对象</strong>：{}内使用键值对的形式表示
+键:相当于属性名
+值:相当于属性值
+对:成对出现
+<strong>实例：</strong></p>
+<pre><code class="lang-js">var 对象名 = {  key: value,  key: value,  key: value,  对象.方法名() {  }};
+</code></pre>
+<pre><code class="lang-js">// 创建star对象，var star = {  name: &quot;pink&quot;,  age: 18,  sex: &quot;男&quot;,  sayHi: function () {    alert(&quot;大家好啊~&quot;);  },};//对象的使用 调用对象的属性console.log(star.name); // 调用名字属性console.log(star[&quot;name&quot;]); // 调用名字属性  推荐使用//调用属性的方法star.sayHi();
+</code></pre>
+<h4 id="6-2-2-new-object-">6.2.2 利用 new Object 创建对象</h4>
+<ol>
+<li>创建空对象
+通过内置构造函数 Object 创建对象,dome 变量已经保存穿件出来的对象</li>
+</ol>
+<pre><code class="lang-js">var dome = new Object();
+</code></pre>
+<ol start="2">
+<li>给空对象添加属性和方法</li>
+</ol>
+<pre><code class="lang-js">//对象.属性=值；var dome = new Object();dome.name = &quot;pink&quot;;dome.age = 18;dome.sex = &quot;男&quot;;dome.sayHi = function () {  alert(&quot;大家好啊~&quot;);};console.log(dome.name);console.log(dome[&quot;sex&quot;]);dome.sayHi();
+</code></pre>
+<h4 id="6-2-3-">6.2.3 利用构造函数创建对象</h4>
+<ol>
+<li>构造函数：是一种特殊的函数，主要用来初始化对象，即为对象成员变量赋初始值，它总与 new 运算符一起使用。我们可以把对象中一些公共的属性和方法抽取出来，然后封装到这个函数里面。</li>
+<li>构造函数的封装格式：</li>
+</ol>
+<pre><code class="lang-js">function 构造函数名(形参1, 形参2, 形参3) {  this.属性名1 = 参数1;  this.属性名2 = 参数2;  this.属性名3 = 参数3;  this.方法名 = 函数体;}
+</code></pre>
+<ol start="3">
+<li>构造函数的调用格式</li>
+</ol>
+<pre><code class="lang-js">var obj = new 构造函数名(实参1，实参2，实参3)
+</code></pre>
+<ol start="4">
+<li>实例</li>
+</ol>
+<pre><code class="lang-js">function Star(uname, age, sex) {  this.name = uname;  this.age = age;  this.sex = sex;  this.sing = function (sang) {    console.log(sang);  };}//调用var ldh = new Star(&quot;刘德华&quot;, 18, &quot;男&quot;); // 调用函数返回的是一个对象// console.log(typeof ldh);console.log(ldh.name); //刘德华console.log(ldh);ldh.sing(&quot;冰雨&quot;);
+</code></pre>
+<p>new 关键字的作用</p>
+<ol>
+<li>在构造函数代码开始执行之前，创建一个空对象；</li>
+<li>修改 this 的指向，把 this 指向创建出来的空对象；</li>
+<li>执行函数的代码</li>
+<li>在函数完成之后，返回 this---即创建出来的对象</li>
+</ol>
+<h3 id="6-3-for-in-">6.3 遍历对象 （for.....in）</h3>
+<p><strong>for.....in //语句用于对数组或者对象的属性进行循环操作</strong>
+语法：</p>
+<pre><code class="lang-js">for (变量 in 对象名字) {
+  // 在此执行代码
+}
+</code></pre>
+<p>语法中的变量是自定义的，它需要符合命名规范，通常我们会将这个变量写为 k 或者 key。</p>
+<pre><code class="lang-js">for (var k in obj) {
+  console.log(k); // 这里的 k 是属性名
+  console.log(obj[k]); // 这里的 obj[k] 是属性值
+}
+</code></pre>
+<p>实例</p>
+<pre><code class="lang-js">var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+var str = &quot;&quot;;
+//遍历数组
+for (var k in arr) {
+  // console.log(k,arr[k]);
+  str += arr[k];
+}
+console.log(str); //输出abc
+
+//以前写法
+
+var arr = [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;];
+var str = &quot;&quot;;
+for (let i = 0; i &lt; arr.length; i++) {
+  str += arr[i];
+}
+console.log(str); //输出abc
+</code></pre>
+<h2 id="js-">js内置对象</h2>
+<h3 id="-">数学对象</h3>
+<table>
+<thead>
+<tr>
+<th>属性/方法</th>
+<th>使用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PI</td>
+<td>Math.PI</td>
+<td>圆周率</td>
+</tr>
+<tr>
+<td>max</td>
+<td>Math.max(...)</td>
+<td>返回最大值</td>
+</tr>
+<tr>
+<td>min</td>
+<td>Math.min(...)</td>
+<td>返回最小值</td>
+</tr>
+<tr>
+<td>abs</td>
+<td>Math.abs(num)</td>
+<td>绝对值</td>
+</tr>
+<tr>
+<td>floor</td>
+<td>Math.floor(num)</td>
+<td>向下取整</td>
+</tr>
+<tr>
+<td>ceil</td>
+<td>Math.ceil(num)</td>
+<td>向上取整</td>
+</tr>
+<tr>
+<td>round</td>
+<td>Math.round(num)</td>
+<td>四舍五入 Math.round(-1.5)=&gt;-1</td>
+</tr>
+<tr>
+<td>random</td>
+<td>Math.random()</td>
+<td>返回[0,1）之间的随机数</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-js">//封装 生成min到max之间的随机整数
+function rand(min, max) {
+    return min + parseInt((max - min + 1) * Math.random());
+}
+console.log(rand(1,5))
+</code></pre>
+<h3 id="-">日期对象</h3>
+<pre><code class="lang-js">// 日期对象使用 需要 new Date()
+// 1 不传参数得到当前时刻的日期对象
+var now = new Date()
+console.log(now)
+// 2 传两个或两个以上参数 表示 年 月 日 ...对应的日期时间对象
+var someDay = new Date(2021,3)
+console.log(someDay)
+var someDay = new Date(2021,3,10)
+console.log(someDay)
+// 3 传一个日期格式化字符串，表示对应日期/时刻 的日期对象
+var anotherDay = new Date(&#39;2021/3/20 10:10:10&#39;)
+console.log(anotherDay)
+// 4 传一个数字型参数,此时该参数被认为是时间戳
+var date = new Date(2021) //此处得到的日期对象对应1970/1/1 0:0:2(格林威治时间)
+</code></pre>
+<p>日期对象方法:</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getFullYear()</td>
+<td>获取4位年</td>
+<td></td>
+</tr>
+<tr>
+<td>getMonth()</td>
+<td>获取月份</td>
+<td>0-11  0表示1月</td>
+</tr>
+<tr>
+<td>getDate()</td>
+<td>获取日期</td>
+<td>1-31</td>
+</tr>
+<tr>
+<td>getDay()</td>
+<td>获取星期几</td>
+<td>0-6   0表示周日</td>
+</tr>
+<tr>
+<td>getHours()</td>
+<td>获取小时</td>
+<td>0-23</td>
+</tr>
+<tr>
+<td>getMinutes()</td>
+<td>获取分</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>getSeconds()</td>
+<td>获取秒</td>
+<td>0-59</td>
+</tr>
+<tr>
+<td>getTime()</td>
+<td>获取时间戳</td>
+<td>距离格林威治时间1970/1/1 0:0:0 的毫秒数</td>
+</tr>
+</tbody>
+</table>
+<p>获取时间戳(某个时刻距离基准时刻的总毫秒数)</p>
+<pre><code class="lang-js">var date = new Date()
+// 方法1
+date.getTime()
+// 方法2
+date.valueOf()
+// 方法3
++date
+// 方法4
+Date.now() //只能得到当前时刻的时间戳
+</code></pre>
+<p>利用时间戳实现倒计时</p>
+<pre><code class="lang-js">function addZero(num) {
+    return num &lt; 10 ? &#39;0&#39; + num : num;
+}
+function countDown(futureTime) {
+    // 计算目标时刻和当前时刻 的 时间差(间隔的秒数)
+    var now = +new Date();
+    var future = +new Date(futureTime);
+    var time = (future - now) / 1000;
+
+    // 将间隔的秒数 换算成 天 时 分 秒
+    var day = parseInt(time / 60 / 60 / 24);
+    var hour = addZero(parseInt((time / 60 / 60) % 24));
+    var min = addZero(parseInt((time / 60) % 60));
+    var sec = addZero(parseInt(time % 60));
+
+    // 将天时分秒 拼接字符串 返回
+    return day + &#39;天&#39; + hour + &#39;时&#39; + min + &#39;分&#39; + sec + &#39;秒&#39;;
+}
+console.log(countDown(&#39;2021-3-3 19:40:00&#39;));
+</code></pre>
+<h3 id="-">数组对象</h3>
+<h4 id="-">创建数组</h4>
+<pre><code class="lang-js">方法1:
+var a = [] // 字面量方式
+方法2:
+var a = new Array(4) //构造函数方式，此时得到包含4个空元素的数组
+var a = new Array(&#39;a&#39;) //此时得到包含元素&#39;a&#39;的数组
+var a = new Array(1,2) //此时得到包含元素 1,2的数组
+var a = new Array([1,2,3]) //此时得到包含1个元素[1,2,3]的二维数组
+</code></pre>
+<h4 id="-">判断是否为数组</h4>
+<pre><code class="lang-js">方法1:利用instanceof操作符  使用格式:  某个数据  instanceof 构造函数
+var arr = [],x = 1;
+arr instanceof Array //true
+x instanceof Array //false
+
+方法2:利用Array.isArray()  使用格式:Array.isArray(某个数据)  IE9及以上支持
+Array.isArray(arr) //true
+Array.isArray(x) //false
+</code></pre>
+<h4 id="-">相关方法</h4>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+<th>参数/返回值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>push</td>
+<td>往后追加元素</td>
+<td>一个或多个数据  返回 最新数组长度</td>
+<td>改变原数组</td>
+</tr>
+<tr>
+<td>unshift</td>
+<td>从前面添加元素</td>
+<td>一个或多个数据  返回 最新数组长度</td>
+<td>改变原数组</td>
+</tr>
+<tr>
+<td>pop</td>
+<td>删除最后一个元素</td>
+<td>无参数  返回被删除的元素</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>shift</td>
+<td>删除第一个元素</td>
+<td>无参数  返回被删除的元素</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>reverse</td>
+<td>翻转数组</td>
+<td>无  返回反转后的新数组</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>数组排序</td>
+<td>无参数时字典排序 function(a,b){return a-b}升序排序，return b-a 降序排序</td>
+<td>同上</td>
+</tr>
+<tr>
+<td>indexOf</td>
+<td>查找元素</td>
+<td>参数1:要查找的值 参数2:开始查找的索引  返回索引或-1</td>
+<td>不改变</td>
+</tr>
+<tr>
+<td>lastIndexOf</td>
+<td>从后往前查找</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>join</td>
+<td>将数组元素拼接成字符串</td>
+<td>参数：分隔符,无参数时默认用逗号连接,返回 字符串</td>
+<td>不改变</td>
+</tr>
+<tr>
+<td>toString</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>splice</td>
+<td>删除、添加元素</td>
+<td></td>
+<td>改变</td>
+</tr>
+<tr>
+<td>slice</td>
+<td>截取数组中的一段</td>
+<td></td>
+<td>不改变</td>
+</tr>
+<tr>
+<td>concat</td>
+<td>拼接两个数组或往数组中追加元素</td>
+<td></td>
+<td>不改变</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">一个重要概念-包装类型</h3>
+<p>为了方便编程时对字符串、数字、bool值更灵活的处理,js提供了对应的包装对象</p>
+<ul>
+<li>String对象  var strObj = new String(&#39;xyz&#39;),str=&#39;xyz&#39;;console.log(str.length)</li>
+<li>Number对象  var numObj = new Number(123) ,num=4;console.log(num.toFixed(2))</li>
+<li>Boolean对象</li>
+</ul>
+<h3 id="-">字符串对象</h3>
+<p><em>重要结论:字符串对象方法均不会改变字符串本身</em></p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>作用</th>
+<th>参数/返回值</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>indexOf/lastIndexOf</td>
+<td>返回字符对应的索引</td>
+<td>参数 字符 返回值:索引 找不到返回-1</td>
+<td></td>
+</tr>
+<tr>
+<td>charAt</td>
+<td>返回索引对应的字符</td>
+<td>参数 索引  返回值:对应的字符</td>
+<td>str[索引]也能得到</td>
+</tr>
+<tr>
+<td>charCodeAt</td>
+<td>返回索引对应的字符的ASCII码</td>
+<td>参数 索引  返回值:对应的字符的ASCii码</td>
+<td></td>
+</tr>
+<tr>
+<td>substr</td>
+<td>字符串截取</td>
+<td>参数 起始位置  截取长度 返回截取的字符串</td>
+<td></td>
+</tr>
+<tr>
+<td>substring</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>slice</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>replace</td>
+<td>字符串替换</td>
+<td>参数:要替换的旧字符串   新字符串 返回替换后的新字符串</td>
+<td>默认只替换一次</td>
+</tr>
+<tr>
+<td>split</td>
+<td>字符串分割</td>
+<td>参数：分隔符  返回 数组</td>
+</tr>
+</tbody>
+</table>
+<h2 id="js-">js数据类型</h2>
+<ul>
+<li>简单数据类型 number string boolean undefined null    数据存放于栈中，直接存放值</li>
+<li>复杂数据类型 object    数据存放于堆中，堆地址存放于栈中，获取数据时先找堆地址，再找数据</li>
+</ul>
+<pre><code class="lang-js">//简单数据类型 变量赋值为 传值
+var a=1;
+var b=a;
+b=10;
+console.log(a,b)//1,10 a b互不干扰
+
+//复杂数据类型 变量赋值 为 传地址
+var t = { name: &#39;刘德华&#39; };
+var p = t;
+p.name = &#39;张学友&#39;;
+console.log(t.name, p.name); //张学友 张学友  p t互相干扰，因为它们现在指向同一块内存
+
+p = { name: &#39;周润发&#39; };
+console.log(p.name,t.name); //张学友 周润发  p t此时不会互相干扰，因为对p整体赋值后，p t 已经不再指向同一块内存
+</code></pre>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
