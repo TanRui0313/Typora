@@ -1,0 +1,1019 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:Ajax全家桶</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h1 id="jquery-">jQuery笔记</h1>
+<h1 id="1-">1. 相关概念</h1>
+<h2 id="1-">1. 客户端与服务器</h2>
+<ol>
+<li>上网的本质目的</li>
+</ol>
+<p>通过互联网的形式来 获取和消费资源</p>
+<ol start="2">
+<li>什么是服务器</li>
+</ol>
+<p>上网过程中，负责 存放和对外提供资源 的电脑，叫做服务器</p>
+<ol start="3">
+<li>什么是客户端？</li>
+</ol>
+<p>在上网过程中，负责 获取和消费资源 的电脑，叫做客户端</p>
+<h2 id="2-url-">2.URL 地址的概念及组成部分</h2>
+<h3 id="2-1-url-">2.1.URL 是什么及作用</h3>
+<ul>
+<li>URL（全称是 UniformResourceLocator） 中文叫 统一资源定位符</li>
+<li>用于标识互联网上每个资源的唯一存放位置。浏览器只有通过 URL 地址，才能正确定位资源的存放位置，从而成功访问到对应的资源</li>
+</ul>
+<h3 id="2-2-url-">2.2 URL 的组成部分</h3>
+<ol>
+<li>客户端与服务器之间的<code>通信协议</code></li>
+<li>存有该资源的<code>服务器名称</code></li>
+<li>资源在服务器上<code>具体的存放位置</code></li>
+</ol>
+<p>可以通过<code>location.href</code> 获取 URL 地址</p>
+<h2 id="3-">3.客户端与服务器通讯过程</h2>
+<h3 id="3-1-">3.1 客户端与服务器通讯过程有几个步骤</h3>
+<p>客户端与服务器之间的通讯过程，分为： <strong><code>请求-处理-响应</code></strong>三个步骤</p>
+<ol>
+<li>客户端<code>请求</code>服务器</li>
+<li>服务器<code>处理</code>请求</li>
+<li>服务器<code>响应</code>客户端</li>
+</ol>
+<h3 id="3-2-">3.2 基于开发者工具查看客户端与服务器的通讯过程</h3>
+<ol>
+<li>打开 Chorme 浏览器</li>
+<li>Ctrl + Shift + I（F12） 打开 Chrome 的开发者工具</li>
+<li>切换到 Network 面板</li>
+<li>选中 Doc 页签</li>
+<li>刷新页面，分析客户端与服务器的通讯过程</li>
+</ol>
+<h2 id="4-">4.数据也是一种资源</h2>
+<ul>
+<li>常见的资源：
+文字 图片 音频 视频</li>
+<li>网页中的数据：
+<code>数据也是服务器对外提供的一种资源</code>，例如股票数据，各行业排行榜等</li>
+</ul>
+<h2 id="5-">5. 网页中如何请求数据</h2>
+<ol>
+<li>通过什么对象可以来发送请求获取数据？
+如果要在网页中请求服务器上的数据资源，需要用到 XMLHttpRequest 对象</li>
+<li>这个对象是浏览器自带的还是需要引入第三方？
+XMLHttpRequest（简称 xhr）是浏览器提供的 JS 成员
+TIP
+数据，也是服务器对外提供的一种 资源，只要是<code>资源</code>，必然要通过 <code>请求 - 处理 - 响应</code> 的方式进行获取</li>
+</ol>
+<h2 id="6-">6. 资源的请求方式</h2>
+<h3 id="6-1-get-">6.1.get 请求</h3>
+<p><code>通常用于 获取服务器资源</code>（要资源）</p>
+<p>例如：根据 URL 地址，从服务器获取 HTML 文件、css 文件、js 文件、图片文件、数据资源等</p>
+<h3 id="6-2-post-">6.2.post 请求</h3>
+<p><code>通常用于 向服务器提交数据</code>（送资源）</p>
+<p>例如：登录时，向服务器 <strong>提交登录信息</strong>、注册时向服务器 <strong>提交注册信息</strong>、添加用户时向服务器 <strong>提交用户信息</strong>等各种 <strong>数据提交操作</strong></p>
+<p>补充：
+补充说明：客户端请求服务器时，请求的方式 有很多种，例如：</p>
+<p>HEAD：类似于 GET 请求，只不过返回的响应中没有具体内容，用户获取报头
+PUT：从客户端向服务器提交数据
+DELETE：请求服务器删除数据
+TRACE：回显服务器收到的情况，主要用户测试
+OPTIONS：允许客户端查看服务器的性能
+PATCH：对 PUT 方法的补充，用来进行局部更新
+了解即可，目前<code>主要掌握 GET 和 POST</code></p>
+<h1 id="2-ajax-">2.Ajax 入门</h1>
+<h2 id="1-jquery-ajax-">1.jQuery 中发起 Ajax 常用的方法有哪些?</h2>
+<ol>
+<li><code>$.get()</code> GET 方式请求，用于获取数据</li>
+<li><code>$.post()</code> POST 方式请求，用于提交数据</li>
+<li><code>$.ajax()</code> 比较综合，既可以获取数据，又可以提交数据</li>
+</ol>
+<h2 id="2-get-">2.$.get()函数语法</h2>
+<pre><code class="lang-js">$.get(url, [data], [callback]); //url是必写项 【】项，是可选项
+</code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-get-">3.$.get()发起不带参数的请求</h2>
+<p>直接提供给 <strong>请求的 URL 地址</strong> 和 <strong>请求成功之后的回调函数</strong></p>
+<pre><code class="lang-js">$(function () {
+  // $.get(&#39;http://www.liulongbin.top:3006/api/getbooks&#39;, function (arr) {
+  //     console.log(arr);
+  // })
+  $(&quot;button&quot;).on(&quot;click&quot;, () =&gt; {
+    //箭头函数写法
+    $.get(&quot;http://www.liulongbin.top:3006/api/getbooks&quot;, (arr) =&gt;
+      console.log(arr)
+    );
+  });
+});
+</code></pre>
+<h2 id="4-get-">4.$.get()发起带参数的请求</h2>
+<p>使用<code>$.get()</code> 发起携带参数的请求，那么携带的参数应该写在<strong>第二个参数</strong>的位置</p>
+<pre><code class="lang-js">$(&quot;#btn&quot;).on(&quot;click&quot;, () =&gt; {
+  $.post(
+    &quot;http://www.liulongbin.top:3006/api/addbook&quot;,
+    { bookname: &quot;四宝&quot;, author: &quot;四宝&quot;, publisher: &quot;四宝工作室&quot; },
+    (arr) =&gt; console.log(arr)
+  );
+});
+</code></pre>
+<h2 id="5-ajax-">5.$.ajax() 函数介绍</h2>
+<p>相比于 $.get() 和 $.post() 函数，jQuery 中提供的 $.ajax() 函数，是一个功能比较综合的函数，它允许我们对 Ajax 请求进行更详细的配置</p>
+<pre><code class="lang-js">$.ajax({
+  type: &quot;&quot;, //请求方法 GET/POST
+  url: &quot;&quot;, //地址
+  data: {}, //参数
+  success: function (res) {
+    console.log(res); //回调函数
+  },
+});
+</code></pre>
+<p>实例</p>
+<pre><code class="lang-js">$.ajax({
+  type: &quot;GET&quot;,
+  url: &quot;http://www.liulongbin.top:3006/api/getbooks&quot;,
+  data: { id: 1 },
+  success: function (arr) {
+    console.log(arr);
+  },
+});
+</code></pre>
+<h2 id="6-ajax-post-">6.$.ajax 发起 POST 请求</h2>
+<p>使用 $.ajax() 发起 POST 请求，只需要把 type 属性的值 设置为 POST 即可</p>
+<pre><code class="lang-js">$.ajax({
+  type: &quot;POST&quot;,
+  url: &quot;http://www.liulongbin.top:3006/api/addbook&quot;,
+  data: {
+    bookname: &quot;艺伎回忆录&quot;,
+    author: &quot;黑马&quot;,
+    publisher: &quot;传智播客&quot;,
+  },
+  success: function (res) {
+    console.log(res);
+  },
+});
+</code></pre>
+<h1 id="3-">3.接口</h1>
+<h2 id="3-1-">3.1.什么是接口</h2>
+<p>使用 Ajax 请求数据时，被请求的 URL 地址，就叫做 数据接口（简称<strong>接口</strong>）</p>
+<h2 id="3-2-">3.2 分析接口的请求过程</h2>
+<ol>
+<li><p>通过 GET 方式请求接口</p>
+</li>
+<li><p>POST 方式请求接口的过程</p>
+</li>
+</ol>
+<h2 id="3-3-">3.3 接口文档</h2>
+<h3 id="1-">1 什么是接口文档？</h3>
+<p>接口文档，顾名思义就是 接口的说明文档，它是我们调用接口的依据。好的接口文档包含了对 接口 URL，参数 以及 输出内容 的说明，我们参照接口文档就能方便的知道接口的作用，以及接口如何进行调用</p>
+<h3 id="2-">2. 接口文档的组成部分？</h3>
+<p>接口名称：用来标识各个接口的简单说明，如 登录接口，获取图书列表接口等
+接口 URL：接口的调用地址
+调用方式：接口的调用方式，如 GET 或者 POST
+参数格式：接口需要传递的参数，每个参数必须包含 参数名称、参数类型、是否必选、参数说明 这 4 项内容
+响应格式：接口的返回值的详细描述，一般包含数据名称、数据类型、说明 3 项内容
+返回示例（可选）：通过对象的形式，列举服务器返回数据的结构</p>
+<h1 id="1-form-">1.Form 表单的基本使用</h1>
+<h2 id="1-1-">1.1 什么是表单</h2>
+<p>HTML 中<form>标签，就是用于采集用户输入的信息，并通过 <form>标签的提交操作，把采集的信息提交到服务器端进行处理</p>
+<h2 id="1-2-">1.2 表单由几部分构成？分别是什么？</h2>
+<p>部分构成:</p>
+<ol>
+<li>表单域： <form></form></li>
+<li>表单标签：包含了文本框，密码框，隐藏域，都行文本框，复选框，单选框，下拉选择框和文件上传框等等</li>
+<li>表单按钮：通过设置 type 属性为 submit 来触发 form 表单的提交</li>
+</ol>
+<h2 id="1-3form-action">1.3form 标签的属性-action</h2>
+<p><code>action属性的作用？</code></p>
+<ol>
+<li>action 属性用来规定当提交表单时，<strong>向何处发送表单数据</strong></li>
+<li><p>action 属性的值应该是<strong>后端提供</strong>的一个<strong>URL 地址</strong>，这个 URL 地址专门负责接收表单提交过来的数据</p>
+</li>
+<li><p>当 <form>表单在未指定 action 属性值的情况下，action 的默认值为当前页面的 URL 地址</p>
+</li>
+<li>当提交表单后，会立即跳转到 action 属性指定的 URL 地址</li>
+</ol>
+<h2 id="1-4-form-target">1.4 form 标签的属性-target</h2>
+<p>target 属性的作用？</p>
+<ul>
+<li>target 属性用来规定 在何处打开 action URL，用白话表示就是在什么地方打开这个<strong>地址</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>_blank</td>
+<td>在新窗口打开</td>
+</tr>
+<tr>
+<td>_self</td>
+<td>默认，在相同的框架中打开</td>
+</tr>
+<tr>
+<td>_parent</td>
+<td>再父框架集中打开</td>
+</tr>
+<tr>
+<td>_top</td>
+<td>在整个窗口中打开</td>
+</tr>
+<tr>
+<td>framename</td>
+<td>在指定的框架中打开</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-5-form-method">1.5 form 标签的属性-method</h2>
+<ol>
+<li><p>method 属性用来规定 <strong>以何种方式</strong> 把表单数据提交到 action URL</p>
+</li>
+<li><p>它的可选值有两个，分别是 GET 和 POST</p>
+</li>
+<li><p>GET 方式适合用来提交<strong>少量的</strong>，<strong>简单的</strong>数据</p>
+</li>
+<li>POST 方式适合用来提交<strong>大量的</strong>，<strong>复杂的</strong>，或包含<strong>文件上传</strong>的数据</li>
+</ol>
+<h2 id="1-6-form-enctype">1.6 form 标签的属性-enctype</h2>
+<p>enctype 属性的作用</p>
+<ul>
+<li>enctype 属性用来规定在 <strong><code>发送表单数据之前如何对数据进行编码</code></strong></li>
+</ul>
+<p>属性值:</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>application/x-www-form-urlencoded</td>
+<td>在发送前编码所有字符（默认）</td>
+</tr>
+<tr>
+<td>multipart/form-data</td>
+<td>不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。</td>
+</tr>
+<tr>
+<td>ttext/plain</td>
+<td>空格转换为 &quot;+&quot; 加号，但不对特殊字符编码。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-7-">1.7 表单的同步提交及缺点</h2>
+<ol>
+<li><p>什么是表单同步提交</p>
+</li>
+<li><p>通过点击 submit 按钮，触发表单提交的操作，从而使页面跳转到 action URL 的行为，叫做表单的同步提交</p>
+</li>
+<li><p>表单同步提交有什么缺点</p>
+</li>
+<li><p>整个页面会发生跳转，跳转到 action URL 所指向的地址，用户体验很差</p>
+</li>
+<li><p>表单同步提交后，页面之前的状态和数据会丢失</p>
+</li>
+<li><p>解决方式</p>
+</li>
+<li><p>利用 Ajax 技术来实现，表单只复杂采集数据，Ajax 负责将数据提交到服务器</p>
+</li>
+</ol>
+<h1 id="2-ajax-">2.Ajax 表单数据提交</h1>
+<h2 id="1-">1. 监听表单提交事件</h2>
+<ol>
+<li><p>sumbit 方法</p>
+</li>
+<li><p>on 方法</p>
+</li>
+</ol>
+<pre><code class="lang-js">// 第一种方式
+$(&quot;#f1&quot;).submit(function () {
+  alert(&quot;监听到了表单的提交事件&quot;);
+});
+
+// 第二种方式
+$(&quot;#f1&quot;).on(&quot;submit&quot;, function () {
+  alert(&quot;监听到了表单的提交事件2&quot;);
+});
+</code></pre>
+<h2 id="2-">2 阻止表单默认提交行为</h2>
+<p>阻止默认行为是 <code>e.stopPropagation()</code>还是 <code>e.preventDefault()</code>?</p>
+<ol>
+<li><p><code>e.stopPropagation()</code> 是阻止事件冒泡</p>
+</li>
+<li><p><code>e.preventDefault()</code> 阻止默认行为，就能阻止表单提交和页面的跳转</p>
+</li>
+</ol>
+<pre><code class="lang-js">// 第一种方式
+$(&quot;#f1&quot;).submit(function (e) {
+  alert(&quot;监听到了表单的提交事件&quot;);
+  e.preventDefault();
+});
+
+// 第二种方式
+$(&quot;#f1&quot;).on(&quot;submit&quot;, function (e) {
+  alert(&quot;监听到了表单的提交事件2&quot;);
+  e.preventDefault();
+});
+</code></pre>
+<h2 id="3-">3 如何快速获取表单数据</h2>
+<ol>
+<li><p>serialize()函数</p>
+<p>在使用 <code>serialize()</code> 函数快速获取表单数据时，<strong>必须为每个表单元素添加 <code>name</code> 属性</strong></p>
+</li>
+</ol>
+<pre><code class="lang-js">$(function () {
+  $(&quot;#f1&quot;).on(&quot;submit&quot;, function (e) {
+    e.preventDefault();
+    var data = $(this).serialize();
+    console.log(data);
+  });
+});
+</code></pre>
+<h1 id="4-">4. 模板引擎</h1>
+<h2 id="4-1-">4.1-模板引擎的基本概念+</h2>
+<p>1.为什么需要模板引擎？模板引擎的作用？</p>
+<ul>
+<li>之前在渲染 UI 结构时候，<strong>拼接字符串是比较麻烦的，而且很容易出现问题</strong></li>
+<li><p>根据程序员指定的 <strong>模板结构</strong> 和 <strong>数据</strong>，自动生成一个完整的 HTML 页面</p>
+</li>
+<li><p>模板引擎有什么好处？</p>
+</li>
+<li><p>减少了字符串的拼接操作</p>
+</li>
+<li>使代码结构更清晰</li>
+<li>使代码更易于阅读与维护</li>
+</ul>
+<h2 id="4-2-art-template">4.2 了解并安装 art-template</h2>
+<ol>
+<li>中文官首页：<a href="http://aui.github.io/art-template/zh-cn/index.html">http://aui.github.io/art-template/zh-cn/index.html</a></li>
+<li>浏览器访问  <a href="http://aui.github.io/art-template/zh-cn/docs/installation.html">http://aui.github.io/art-template/zh-cn/docs/installation.html</a></li>
+</ol>
+<h1 id="1-xmlhttprequest-">1.XMLHttpRequest 的基本使用</h1>
+<p>###1.1 什么 XMLHttpRequest</p>
+<p>XMLHttpRequest（简称 <strong>xhr</strong>），是浏览器提供的 Javascript 对象</p>
+<p>作用是什么:
+通过 xhr，可以<strong>请求服务器上的数据资源</strong>。之前所学的 jQuery 中的 Ajax 函数，就是基于 xhr 对象封装出来的</p>
+<h2 id="1-2-xhr-get-">1.2 使用 xhr 发起 GET 请求</h2>
+<ol>
+<li><p>创建 <code>xhr</code> 对象</p>
+</li>
+<li><p>调用 <code>xhr.open()</code> 函数</p>
+</li>
+<li><p>调用 <code>xhr.send()</code> 函数`</p>
+</li>
+<li><p>监听 <code>xhr.onreadystatechange</code> 事件</p>
+</li>
+</ol>
+<p><code>示例代码</code></p>
+<pre><code class="lang-javascript">// 1. 创建 XHR 对象
+var xhr = new XMLHttpRequest();
+// 2. 调用 open 函数
+xhr.open(&quot;GET&quot;, &quot;http://www.liulongbin.top:3006/api/getbooks&quot;);
+// 3. 调用 send 函数
+xhr.send();
+// 4. 监听 onreadystatechange 事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {
+    // 获取服务器响应的数据
+    console.log(xhr.responseText);
+  }
+};
+</code></pre>
+<h2 id="1-3-xhr-readystate-">1.3 了解 xhr 对象的 readyState 属性</h2>
+<blockquote>
+<p><code>readyState</code> 作用是什么？有几种状态？</p>
+</blockquote>
+<ol>
+<li>XMLHttpRequest 对象的 <code>readyState</code> 属性，用来表示<strong>当前 Ajax 请求所处的状态</strong></li>
+<li>对应一共有 5 个状态，分别是： <code>UNSENT、OPENED、HEADERS_RECEIVED、LOADING、DONE</code>，</li>
+</ol>
+<h2 id="1-4-xhr-get-">1.4 使用 xhr 发起带参数的 GET 请求</h2>
+<p>在调用 <code>xhr.open()</code> 设置请求<code>URL</code>的时候，<strong>携带 get 参数</strong>即可</p>
+<pre><code class="lang-js">var xhr = new XMLHttpRequest();
+xhr.open(&quot;GET&quot;, &quot;http://www.liulongbin.top:3006/api/getbooks?id=1&quot;);
+xhr.send();
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {
+    console.log(xhr.responseText);
+  }
+};
+</code></pre>
+<h2 id="1-5-">1.5 查询字符串</h2>
+<blockquote>
+<p>1.什么是查询字符串？</p>
+</blockquote>
+<p>查询字符串（URL 参数）是指在 URL 的末尾加上用于向服务器发送信息的字符串（变量）</p>
+<blockquote>
+<p>2.查询字符串的格式是怎样？</p>
+</blockquote>
+<p>将英文的 ? 放在 URL 的末尾，然后再加上 参数＝值 ，想加上多个参数的话，使用 &amp; 符号进行分隔。以这个形式，可以将想要发送给服务器的数据添加到 URL 中</p>
+<h2 id="1-6get-">1.6GET 请求携带参数的本质</h2>
+<blockquote>
+<p>1.只要发起 GET 方式的请求，参数的携带方式是怎样？</p>
+</blockquote>
+<p>无论使用 $.ajax()，还是使用 $.get()，又或者直接使用 xhr 对象发起 GET 请求，当需要携带参数的时候，本质上，都是直接将参数以查询字符串的形式，追加到 URL 地址的后面，发送到服务器的。</p>
+<pre><code class="lang-js">$.ajax({
+  method: &quot;GET&quot;,
+  url: &quot;http://www.liulongbin.top:3006/api/getbooks&quot;,
+  data: {
+    id: 1,
+    bookname: &quot;西游记&quot;,
+  },
+  success: function (res) {
+    console.log(res);
+  },
+});
+</code></pre>
+<h2 id="1-7-url-">1.7 什么是 URL 编码</h2>
+<p>URL 编码是一用来打包表单输入的格式，通俗来说：而格式中，只允许出现英文相关的字母、标点符号、数字</p>
+<blockquote>
+<p>1.在什么情况下需要 URL 编码？</p>
+</blockquote>
+<p>如果 URL 中需要包含中文这样的字符，则必须对中文字符进行编码（转义）。</p>
+<blockquote>
+<p>2.URL 编码的原则？</p>
+</blockquote>
+<p>使用安全的字符（没有特殊用途或者特殊意义的可打印字符）去表示那些不安全的字符。
+URL 编码原则的通俗理解：使用英文字符去表示非英文字符</p>
+<h2 id="1-8-url-">1.8 如何对 URL 进行编码与解码</h2>
+<blockquote>
+<p>1.如何进行 URL 编码？什么情况下用到编码?</p>
+</blockquote>
+<p>调用浏览器提供的 encodeURI() 编码的函数
+如果中文参数需要通过 URL 请求发送给后台服务器就需要进行 URL 的编码</p>
+<blockquote>
+<p>2.如何进行 URL 解码？什么情况下用到解码?</p>
+</blockquote>
+<p>调用浏览器提供的 decodeURI() 解码的函数
+如果获取的数据是通过了 <strong>encodeURI</strong> 进行<code>编码</code>的，就需要通过 <strong>decodeURI</strong> 进行<code>解码</code></p>
+<pre><code class="lang-js">//编码
+var str = &quot;黑马程序员&quot;;
+var str2 = encodeURI(str);
+console.log(str2);
+//解码
+var str3 = decodeURI(&quot;%E9%BB%91%E9%A9%AC&quot;);
+console.log(str3);
+</code></pre>
+<h2 id="1-9-xhr-post-">1.9 使用 xhr 发起 POST 请求</h2>
+<ol>
+<li><p>创建 xhr 对象</p>
+</li>
+<li><p>调用 xhr.open() 函数</p>
+</li>
+<li><p>设置 Content-Type 属性（固定写法）</p>
+</li>
+<li><p>调用 xhr.send() 函数，同时指定要发送的数据</p>
+</li>
+<li><p>监听 xhr.onreadystatechange 事件
+示例代码：</p>
+</li>
+</ol>
+<pre><code class="lang-js">// 1. 创建 xhr 对象
+var xhr = new XMLHttpRequest();
+// 2. 调用 open 函数
+xhr.open(&quot;POST&quot;, &quot;http://www.liulongbin.top:3006/api/addbook&quot;);
+// 3. 设置 Content-Type 属性（固定写法）
+xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);
+// 4. 调用 send 函数
+xhr.send(&quot;bookname=水浒传&amp;author=施耐庵&amp;publisher=上海图书出版社&quot;);
+// 5. 监听事件
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {
+    console.log(xhr.responseText);
+  }
+};
+</code></pre>
+<h1 id="2-">2.数据交换格式</h1>
+<h2 id="2-1-">2.1 什么是数据交换格式</h2>
+<p>是<strong>服务器端</strong>与<strong>客户端</strong>之间进行<strong>数据传输与交换的格式</strong></p>
+<p>前端领域，经常提及的两种数据交换格式分别是 XML 和 JSON。其中 XML 用的非常少，所以，我们重点要学习的数据交换格式就是 JSON</p>
+<h2 id="2-2-xml">2.2 XML</h2>
+<p>XML 的英文全称是 EXtensible Markup Language，即可扩展标记语言。因此，XML 和 HTML 类似，也是一种标记语言。</p>
+<blockquote>
+<p>什么是 XML？</p>
+</blockquote>
+<p>XML 的英文全称是 EXtensible Markup Language，即可扩展标记语言。因此，XML 和 HTML 类似，也是一种标记语言。</p>
+<h2 id="2-3-json">2.3 JSON</h2>
+<h2 id="2-4-json-">2.4 JSON 两种结构</h2>
+<blockquote>
+<p>对象结构</p>
+</blockquote>
+<ul>
+<li>对象结构在 JSON 中表示为 { } 括起来的内容。数据结构为 { key: value, key: value, … } 的键值对结构，key 必须是使用英文的双引号包裹的字符串，value 的数据类型可以是数字、字符串、布尔值、null、数组、对象 6 种类型。</li>
+</ul>
+<pre><code class="lang-json">{}
+</code></pre>
+<blockquote>
+<p>数组结构</p>
+</blockquote>
+<ul>
+<li>数组结构在 JSON 中表示为 [ ] 括起来的内容。数据结构为 [ &quot;java&quot;, &quot;javascript&quot;, 30, true … ] 。</li>
+<li>数组中数据的类型可以是数字、字符串、布尔值、null、数组、对象 6 种类型。</li>
+</ul>
+<h2 id="2-5-json-">2.5 JSON 语法注意事项</h2>
+<ol>
+<li><strong>属性</strong>名必须使用<code>双引号</code>包裹</li>
+<li><strong>字符串</strong>类型的值必须使用<code>双引号</code>包裹</li>
+<li>JSON 中<code>不允许使用单引号</code>表示字符串</li>
+<li>JSON 中<code>不能写注释</code></li>
+<li>JSON 的最外层必须是对象或数组格式</li>
+<li>不能使用 <code>undefined</code> 或函数作为 JSON 的值</li>
+</ol>
+<h2 id="2-6-json-js-">2.6 JSON 和 JS 对象的关系</h2>
+<ol>
+<li>JSON 是 JS 对象的字符串表示法</li>
+<li>它使用文本表示一个 JS 对象的信息，<strong>本质是一个字符串</strong></li>
+</ol>
+<h2 id="2-7-json-js-">2.7 JSON 和 JS 对象的互转</h2>
+<blockquote>
+<p>1.JSON.parse()---------JSON 序列化。</p>
+</blockquote>
+<pre><code class="lang-js">var jsonStr = &#39;{&quot;a&quot;: &quot;Hello&quot;, &quot;b&quot;: &quot;world&quot;}&#39;;
+var obj = JSON.parse(jsonStr);
+console.log(obj);
+</code></pre>
+<blockquote>
+<p>2.JSON.stringify()-------JSON 反序列化</p>
+</blockquote>
+<pre><code class="lang-js">var obj2 = { a: &quot;hello&quot;, b: &quot;world&quot;, c: false };
+var str = JSON.stringify(obj2);
+console.log(str);
+</code></pre>
+<h1 id="3-ajax-">3.封装自己的 Ajax 函数</h1>
+<pre><code class="lang-js">myAjax({  method: &quot;GET&quot;,  url: &quot;http://www.liulongbin.top:3006/api/getbooks&quot;,  data: { id: 1 },  success: function (arr) {    console.log(arr);  },});function resolveData(data) {  var arr = [];  for (let k in data) {    var str = k + &quot;=&quot; + data[k];    arr.push(arr);  }  return arr.join(&quot;&amp;&quot;);}function myAjax(options) {  var xhr = new XMLHttpRequest();  var qs = resolveData(options.data);  if (options.method.toUpperCase() === &quot;GET&quot;) {    xhr.open(options.method, options.url);    xhr.send();  } else if (options.method.toUpperCase() === &quot;POST&quot;) {    xhr.open(options.method, options.url);    xhr.setRequestHeader(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);    xhr.send(qs);  }  xhr.onreadystatechange = function () {    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {      var result = JSON.parse(xhr.responseText);      options.success(result);    }  };}
+</code></pre>
+<p>#4 XHR Level2 的新特性</p>
+<p>##4.1 了解新版 xhr 中支持的新功能</p>
+<blockquote>
+<p>1.旧版 xhr 的缺点？</p>
+</blockquote>
+<ol>
+<li>只支持文本数据的传输，无法用来读取和上传文件</li>
+<li>传送和接收数据时，没有进度信息，只能提示有没有完成</li>
+</ol>
+<blockquote>
+<p>2.新版 xhr 的新功能？</p>
+</blockquote>
+<ul>
+<li>可以设置 HTTP 请求的时限</li>
+<li>可以使用 FormData 对象管理表单数据</li>
+<li>可以上传文件</li>
+<li>可以获得数据传输的进度信息</li>
+</ul>
+<p>##4.2 设置 HTTP 请求的时限</p>
+<p>  1.新版本的 XMLHttpRequest 对象，增加了<code>timeout</code>属性，可以设置 HTTP 请求的时限：以下是设置最长等待时间为 3000 毫秒，一旦过了这个时限，就会自动停止 HTTP 请求</p>
+<pre><code class="lang-js">// 设置 超时时间
+xhr.timeout = 3000;
+</code></pre>
+<p>2.我们可以通过 timeout 事件，来监听到是否超时</p>
+<pre><code class="lang-js">// 设置超时以后的处理函数
+xhr.ontimeout = function () {
+  console.log(&quot;请求超时了！&quot;);
+};
+</code></pre>
+<h2 id="4-3-formdata-">4.3 使用 FormData 对象管理表单数据</h2>
+<blockquote>
+<p>1.添加数据
+Ajax 操作往往用来提交表单数据。为了方便表单处理，HTML5 新增了一个 FormData 对象，可以模拟表单操作：</p>
+</blockquote>
+<pre><code class="lang-js">// 1. 新建 FormData 对象
+var fd = new FormData()
+// 2. 为 FormData 添加表单项
+fd.append(&#39;uname&#39;, &#39;zs&#39;) fd.append(&#39;upwd&#39;, &#39;123456&#39;)
+// 3. 创建 XHR 对象
+var xhr = new XMLHttpRequest()
+// 4. 指定请求类型与URL地址
+xhr.open(&#39;POST&#39;, &#39;http://www.liulongbin.top:3006/api/formdata&#39;)
+// 5. 直接提交 FormData 对象，这与提交网页表单的效果，完全一样
+xhr.send(fd)
+</code></pre>
+<blockquote>
+<p>2.获取数据
+FormData 对象也可以用来获取网页表单的值，示例代码如下：</p>
+</blockquote>
+<pre><code class="lang-js">// 1. 通过 DOM 操作，获取到 form 表单元素
+var form = document.querySelector(&#39;#form1&#39;)
+form.addEventListener(&#39;submit&#39;, function (e) {
+// 阻止表单的默认提交行为
+e.preventDefault()
+// 创建 FormData，快速获取到 form 表单中的数据
+var fd = new FormData(form)
+var xhr = new XMLHttpRequest()
+xhr.open(&#39;POST&#39;, &#39;http://www.liulongbin.top:3006/api/formdata&#39;)
+xhr.send(fd)
+xhr.onreadystatechange = function () {
+if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {
+console.log(JSON.parse(xhr.responseText))
+}
+}
+</code></pre>
+<p>##4.4 文件上传添加进度条</p>
+<pre><code class="lang-js">// 1. 获取到文件上传按钮
+var btnUpload = document.querySelector(&quot;#btnUpload&quot;);
+btnUpload.addEventListener(&quot;click&quot;, function () {
+  var files = document.querySelector(&quot;#file1&quot;).files;
+  // console.log(files);
+  if (files.length &lt;= 0) return alert(&quot;获取文件失败&quot;);
+  var fd = new FormData();
+  fd.append(&quot;avatar&quot;, files[0]);
+  var xhr = new XMLHttpRequest();
+  //进度条
+  xhr.upload.onprogress = function (e) {
+    if (e.lengthComputable) {
+      var percentComplete = Math.ceil((e.loaded / e.total) * 100);
+      $(&quot;#percent&quot;)
+        .attr(&quot;style&quot;, &quot;width: &quot; + percentComplete + &quot;%;&quot;)
+        .html(percentComplete + &quot;%&quot;);
+    }
+  };
+  xhr.open(&quot;POST&quot;, &quot;http://www.liulongbin.top:3006/api/upload/avatar&quot;);
+  xhr.send(fd);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 &amp;&amp; xhr.status === 200) {
+      var data = JSON.parse(xhr.responseText);
+      // console.log(data);
+      if (data.status === 200) {
+        document.querySelector(&quot;#img&quot;).src =
+          &quot;http://www.liulongbin.top:3006&quot; + data.url;
+      } else {
+        console.log(data.message);
+      }
+    }
+  };
+});
+</code></pre>
+<h1 id="1-">1.同源策略</h1>
+<h2 id="1-1-">1.1 什么是同源</h2>
+<p>如果两个页面的协议，域名和端口都相同，则两个页面具有相同的源。</p>
+<h2 id="1-2-">1.2 什么是同源策略</h2>
+<p><code>同源策略</code>（英文全称 Same origin policy）是浏览器提供的一个安全功能</p>
+<p><strong><code>MDN 官方给定的概念</code></strong>：同源策略限制了从同一个源加载的文档或脚本如何与来自另一个源的资源进行交互。这</p>
+<p>是一个用于隔离潜在恶意文件的重要安全机制</p>
+<p>通俗的理解：浏览器规定，A 网站的 JavaScript，不允许和非同源的网站 C 之间，进行资源的交互，例如：</p>
+<p>① 无法读取非同源网页的 Cookie、LocalStorage 和 IndexedDB</p>
+<p>② 无法接触非同源网页的 DOM</p>
+<p>③ 无法向非同源地址发送 Ajax 请求</p>
+<h1 id="2-">2.跨域</h1>
+<h2 id="2-1-">2.1 什么是跨域</h2>
+<p><strong>同源</strong>指的是两个 URL 的协议、域名、端口一致，反之，则是<strong>跨域</strong></p>
+<p>出现跨域的根本原因：<strong>浏览器的同源策略</strong>不允许非同源的 URL 之间进行资源的交互</p>
+<h2 id="2-2-">2.2 浏览器对跨域请求的拦截</h2>
+<p>浏览器允许发起跨域请求，但是，跨域请求回来的数据，会被浏览器拦截，无法被页面获取到！</p>
+<h2 id="2-3-">2.3 如何实现跨域数据请求</h2>
+<p>###2.3.1  <strong><code>.JSONP</code>：</strong></p>
+<p>出现的早，兼容性好（兼容低版本 IE）。是前端程序员为了解决跨域问题，被迫想出来的一种临时解决方案。<strong>缺点</strong>是只支持 <code>GET</code> 请求，不支持 <code>POST</code> 请求。</p>
+<p>###2.3.2  <strong><code>.CORS</code>：</strong></p>
+<p>出现的较晚，它是 <code>W3C</code> 标准，属于跨域 <code>Ajax</code> 请求的根本解决方案。支持 <code>GET</code> 和 <code>POST</code> 请求。<strong>缺点</strong>是不兼容某些低版本的浏览器</p>
+<h1 id="3-jsonp">3.JSONP</h1>
+<h2 id="3-1-jsonp">3.1 什么是 JSONP</h2>
+<p><strong><code>JSONP</code></strong> (JSON with Padding) 是 <code>JSON</code> 的一种“使用模式”，可用于解决主流浏览器的跨域数据访问的问题。</p>
+<h2 id="3-2jsonp-">3.2JSONP 的实现原理</h2>
+<p><code>JSONP</code> 的实现原理，就是通过 <code>&lt;script&gt;</code> 标签的 <code>src</code> 属性，请求跨域的数据接口，并通过<strong>函数调用</strong>的形式，接收跨域接口响应回来的数据</p>
+<h2 id="3-3-jsonp">3.3 实现简单的 JSONP</h2>
+<pre><code class="lang-js">//定义一个回调函数：
+function abc(data) {
+  console.log(&quot;拿到了Data数据：&quot;);
+  console.log(data);
+}
+//通过 &lt;script&gt; 标签，请求接口数据：
+&lt;script src=&quot;./js/getdata.js?callback=abc&quot;&gt;&lt;/script&gt;;
+</code></pre>
+<p>##3.4JSONP 缺点</p>
+<p>由于 <code>JSONP</code> 是通过 <code>&lt;script&gt;</code> 标签的 <code>src</code> 属性，来实现跨域数据获取的，所以，<code>JSONP</code> 只支持 <code>GET</code> 数据请求，不支持 POST 请求。</p>
+<p><strong>注意：</strong> <strong><code>JSONP</code> 和 Ajax 之间没有任何关系</strong>，不能把 <code>JSONP</code> 请求数据的方式叫做 Ajax，因为 <code>JSONP</code> 没有用到<code>XMLHttpRequest</code> 这个对象。</p>
+<h2 id="3-5jquery-jsonp">3.5jQuery 中的 JSONP</h2>
+<p><code>jQuery</code> 提供的 <code>$.ajax()</code> 函数，除了可以发起真正的 <code>Ajax</code> 数据请求之外，还能够发起 <code>JSONP</code> 数据请求</p>
+<pre><code class="lang-js">// 发起JSONP的请求
+$.ajax({
+  url: &quot;http://www.liulongbin.top:3006/api/jsonp?name=zssss&amp;age=20&quot;,
+  dataType: &quot;JSONP&quot;, //
+  success: function (res) {
+    console.log(res);
+  },
+});
+</code></pre>
+<p>注意：使用 jQuery 发起 JSONP 请求，会自动携带一个 callback=jQueryxxx 的参数，jQueryxxx 是随机生成的一个回调函数名称。</p>
+<h3 id="3-5-1-">3.5.1 .<code>自定义参数及回调函数名称</code></h3>
+<p>在使用 <code>jQuery</code> 发起 <code>JSONP</code> 请求时，如果想要自定义 <code>JSONP</code> 的<strong>参数</strong>以及<strong>回调函数名称</strong>，可以通过如下两个参数来指定</p>
+<pre><code class="lang-js">$.ajax({
+  url: &quot;http://ajax.frontend.itheima.net:3006/api/jsonp?name=zs&amp;age=20&quot;,
+  dataType: &quot;jsonp&quot;,
+  // 发送到服务端的参数名称，默认值为 callback
+  jsonp: &quot;callback&quot;,
+  // 自定义的回调函数名称，默认值为 jQueryxxx 格式
+  jsonpCallback: &quot;abc&quot;,
+  success: function (res) {
+    console.log(res);
+  },
+});
+</code></pre>
+<h3 id="3-5-2-jquery-jsonp-">3.5.2 <code>jQuery中JSONP的实现过程</code></h3>
+<p><code>jQuery</code> 中的 <code>JSONP</code>，也是通过 <code>&lt;script&gt;</code> 标签的 <code>src</code> 属性实现跨域数据访问的，只不过，<code>jQuery</code> 采用的是<strong>动态创建和移除标签</strong>的方式，来发起 <code>JSONP</code> 数据请求。</p>
+<ul>
+<li><p>在发起 <code>JSONP</code> 请求的时候，动态向 <code>&lt;header&gt;</code> 中 append 一个 <code>&lt;script&gt;</code> 标签；</p>
+</li>
+<li><p>在 <code>JSONP</code> 请求成功以后，动态从 <code>&lt;header&gt;</code> 中移除刚才 <code>append</code> 进去的 <code>&lt;script&gt;</code> 标签；</p>
+</li>
+</ul>
+<h1 id="4-">4.防抖&amp;节流</h1>
+<h2 id="4-1-">4.1 什么是防抖</h2>
+<p><strong>防抖策略</strong>（<code>debounce</code>）是当事件被触发后，延迟 <code>n</code> 秒后再执行回调，如果在这 <code>n</code> 秒内事件又被触发，则重新计时。</p>
+<p><strong>好处：</strong>能够保证用户在频繁触发某些事件的时候，不会频繁的执行回调，只会被执行一次</p>
+<pre><code class="lang-js">
+</code></pre>
+<h2 id="4-2-">4.2节流</h2>
+<p><strong>节流策略</strong>（<code>throttle</code>），顾名思义，可以减少一段时间内事件的触发频率。</p>
+<p>###e.preventDefault()与e.stopPropagation()的区别</p>
+<p>e.stopPropagation()阻止事件冒泡</p>
+<p>e.preventDefault()阻止事件默认行为</p>
+<h2 id="4-3-">4.3流阀的概念</h2>
+<p>节流阀为空，表示可以执行下次操作；不为空，表示不能执行下次操作。</p>
+<p>当前操作执行完，必须将节流阀<strong>重置</strong>为空，表示可以执行下次操作了。</p>
+<p>每次执行操作前，必须<strong>先判断节流阀是否为空</strong>。</p>
+<h2 id="4-4-">4.4使用节流优化鼠标跟随效果</h2>
+<ul>
+<li>预定义一个 timer <strong>节流阀</strong></li>
+<li>当设置了鼠标跟随效果后，<strong>清空</strong> <strong>timer</strong> <strong>节流阀</strong>，方便下次开启延时器</li>
+<li>执行事件的时候判断<strong>节流阀</strong>是否为空，如果不为空，则证明距离上次执行间隔不足16毫秒</li>
+</ul>
+<pre><code class="lang-js">$(function() {
+     var angel = $(&#39;#angel&#39;)
+     var timer = null // 1.预定义一个 timer 节流阀
+     $(document).on(&#39;mousemove&#39;, function(e) {
+     if (timer) { return } // 3.判断节流阀是否为空，如果不为空，则证明距离上次执行间隔不足16毫秒
+     timer = setTimeout(function() {
+     $(angel).css(&#39;left&#39;, e.pageX + &#39;px&#39;).css(&#39;top&#39;, e.pageY + &#39;px&#39;)
+     timer = null // 2.当设置了鼠标跟随效果后，清空 timer 节流阀，方便下次开启延时器
+     }, 16)
+     })
+})
+</code></pre>
+<h2 id="4-5-">4.5 防抖和节流的区别</h2>
+<ul>
+<li><p><strong>防抖</strong>：如果事件被频繁触发，防抖能保证只有最有一次触发生效！前面 N 多次的触发都会被忽略！</p>
+</li>
+<li><p><strong>节流</strong>：如果事件被频繁触发，节流能够减少事件触发的频率，因此，节流是有选择性地执行一部分事件！</p>
+</li>
+</ul>
+<p>#1.HTTP协议</p>
+<h2 id="1-1-">1.1什么是通讯</h2>
+<p>通讯：信息的传递和交换
+通讯三要素：</p>
+<ul>
+<li>通讯的<code>主体</code></li>
+<li>通讯的<code>内容</code></li>
+<li>通讯的<code>方式</code></li>
+</ul>
+<blockquote>
+<p>互联网中的通讯</p>
+</blockquote>
+<p>服务器<code>响应</code>客户端浏览器</p>
+<h2 id="1-2-">1.2什么是通信协议</h2>
+<p><strong><code>通信协议</code></strong>（<code>Communication Protocol</code>）是指通信的双方完成通信所<strong>必须遵守</strong>的<strong>规则和约定</strong>。</p>
+<p><strong>理解：</strong>通信双方采用约定好的格式来发送和接收消息，这种<strong>事先约定好的通信格式，就叫做通信协议</strong>。</p>
+<blockquote>
+<p>互联网中的通信协议</p>
+</blockquote>
+<p>客户端与服务器之间要实现网页内容的传输，则通信的双方必须遵守网页内容的传输协议。</p>
+<p>网页内容又叫做<strong>超文本</strong>，因此网页内容的传输协议又叫做<strong>超文本传输协议</strong>（HyperText Transfer Protocol） ，</p>
+<p>简称 <strong>HTTP 协议</strong>。</p>
+<h2 id="1-3http">1.3HTTP</h2>
+<blockquote>
+<p>1.什么是HTTP协议</p>
+</blockquote>
+<p><strong>HTTP 协议</strong>即超文本传送协议 (<code>HyperText Transfer Protocol</code>) ，它规定了客户端与服务器之间进行网页内容传输时，所必须遵守的传输格式。</p>
+<p><strong>例如：</strong></p>
+<ul>
+<li><p>客户端要以HTTP协议要求的格式把数据提交到服务器</p>
+</li>
+<li><p>服务器要以HTTP协议要求的格式把内容响应给客户端</p>
+</li>
+</ul>
+<blockquote>
+<p>2.HTTP协议的交换模式</p>
+</blockquote>
+<p>HTTP采用<code>请求/响应</code>的交换模式</p>
+<h1 id="2-http-">2.HTTP请求消息</h1>
+<h2 id="2-1-http-">2.1什么是HTTP请求消息</h2>
+<p>由于 <code>HTTP</code> 协议属于客户端浏览器和服务器之间的通信协议。因此，客户端发起的请求叫做 <strong>HTTP 请求</strong>，客户</p>
+<p>端发送到服务器的消息，叫做 <strong>HTTP 请求消息</strong>。</p>
+<p><strong>注意：</strong><code>HTTP</code> 请求消息又叫做 <code>HTTP</code> 请求报文</p>
+<h2 id="2-2http-">2.2HTTP请求消息的组成部分</h2>
+<p><code>HTTP</code> 请求消息由 4 个部分组成。</p>
+<ol>
+<li><p>请求行（<code>request line</code>）</p>
+</li>
+<li><p>请求头部（ <code>header</code> ） </p>
+</li>
+<li><p>空行 </p>
+</li>
+<li><p>请求体</p>
+</li>
+</ol>
+<blockquote>
+<p> 1.请求行</p>
+</blockquote>
+<p>请求行由请求方式、URL 和 HTTP 协议版本 3 个部分组成，他们之间使用空格隔开。</p>
+<blockquote>
+<p>2.请求头部</p>
+</blockquote>
+<p><code>请求头部</code>用来描述<strong>客户端的基本信息</strong>，从而<code>把客户端的相关信息告知服务器</code>。</p>
+<p>请求头部常用字段</p>
+<pre><code>POST /api/addbook HTTP/1.1
+Host: www.liulongbin.top:3006
+Connection: keep-alive
+Content-Length: 136
+Pragma: no-cache
+Cache-Control: no-cache
+Accept: */*
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Origin: null
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9
+</code></pre><blockquote>
+<p>3.空行</p>
+</blockquote>
+<p>请求消息中的空行，用来分隔请求头部与请求体</p>
+<blockquote>
+<p>4.请求体</p>
+</blockquote>
+<p>请求体中存放的，是要通过 POST 方式提交到服务器的数据。</p>
+<h1 id="3-http-">3.HTTP响应消息</h1>
+<h2 id="3-1http-">3.1HTTP响应消息组成部分</h2>
+<ol>
+<li><p>状态行</p>
+</li>
+<li><p>响应头部</p>
+</li>
+<li><p>空行 </p>
+</li>
+<li><p>响应体</p>
+</li>
+</ol>
+<h3 id="1-">1.状态行</h3>
+<p><strong>状态行</strong>由 <strong>HTTP 协议版本</strong>、<strong>状态码</strong>和<strong>状态码的描述文本</strong> 3 个部分组成，他们之间使用空格隔开</p>
+<pre><code class="lang-js">Response Headers
+  HTTP/1.1 200 OK//协议版本/ /状态码/ /状态码描述
+</code></pre>
+<h3 id="2-">2.响应头部</h3>
+<p><strong>响应头部</strong>用来描述<strong>服务器的基本信息</strong>。响应头部由多行 <strong>键/值对</strong> 组成，每行的键和值之间用英文的冒号分隔。</p>
+<pre><code>Host: www.liulongbin.top:3006
+Connection: keep-alive
+Content-Length: 136
+Pragma: no-cache
+Cache-Control: no-cache
+Accept: */*
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+Origin: null
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9
+</code></pre><h3 id="3-">3.空行</h3>
+<p>在最后一个响应头部字段结束之后，会紧跟一个<strong>空行</strong>，用来通知客户端<strong>响应头部至此结束</strong>。</p>
+<h3 id="4-">4.响应体</h3>
+<p>响应体中存放的，是服务器响应给客户端的资源内容。</p>
+<h1 id="4-http-">4.HTTP请求方式</h1>
+<h2 id="-http-">什么是HTTP请求方法</h2>
+<p>HTTP 请求方法，属于 HTTP 协议中的一部分，请求方法的作用是：用来表明<strong>要对服务器上的资源执行的操作</strong>。最常用的请求方法是 <code>GET</code> 和 <code>POST</code>。</p>
+<h2 id="http-">HTTP的请求方法(⭐⭐⭐)</h2>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/http请求方式.png" alt=""></p>
+<h1 id="http-">HTTP响应状态码</h1>
+<h2 id="-http-">什么是HTTP响应状态码</h2>
+<p><strong>HTTP 响应状态码</strong>（<code>HTTP Status Code</code>），也属于 <code>HTTP</code> 协议的一部分，用来标识响应的状态。</p>
+<p>响应状态码会随着响应消息一起被发送至客户端浏览器，浏览器根据服务器返回的响应状态码，就能知道这次</p>
+<p><code>HTTP</code> 请求的结果是成功还是失败了。</p>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/http相应状态码.png" alt=""></p>
+<h2 id="http-">HTTP响应状态码的组成及分类</h2>
+<p>HTTP 状态码由<strong>三个十进制数字组成</strong>，<strong>第一个十进制数字定义了状态码的类型</strong>，后两个数字<strong>用来对状态码进行细分</strong>。</p>
+<p>HTTP 状态码共分为 5 种类型：</p>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/状态码.png" alt=""></p>
+<p>完整的 HTTP 响应状态码，可以参考 <code>MDN</code> 官方文档 <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status">https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Status</a></p>
+<h2 id="-http-">常见的HTTP响应状态码(⭐⭐⭐)</h2>
+<h3 id="2-">2** 成功相关的响应状态码</h3>
+<p>2<strong> 范围的状态码，表示服务器已成功接收到请求并进行处理。常见的 2</strong> 类型的状态码如下：</p>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/200系列.png" alt=""></p>
+<h3 id="3-">3** 重定向相关的响应状态码</h3>
+<p>3<strong> 范围的状态码，表示表示服务器要求客户端重定向，需要客户端进一步的操作以完成资源的请求。常见的 3</strong> 类型的状态码如下：</p>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/300系列.png" alt=""></p>
+<h3 id="4-">4** 客户端错误相关的响应状态码</h3>
+<p>4<strong> 范围的状态码，表示客户端的请求有非法内容，从而导致这次请求失败。常见的 4</strong> 类型的状态码如下：</p>
+<p><img src="E:/传智播客md笔记/11.Ajax/day5/images/400系列.png" alt=""></p>
+<h3 id="5-">5** 服务端错误相关的响应状态码</h3>
+<p>5<strong> 范围的状态码，表示服务器未能正常处理客户端的请求而出现意外错误。常见的 5</strong> 类型的状态码如下</p>
+<p>1</p>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
