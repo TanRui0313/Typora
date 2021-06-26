@@ -1,0 +1,953 @@
+<html>
+  <head>
+	  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>i5ting_ztree_toc:jQuery全家桶</title>
+		<link href="toc/style/github-bf51422f4bb36427d391e4b75a1daa083c2d840e.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/style/github2-d731afd4f624c99a4b19ad69f3083cd6d02b81d5.css" media="all" rel="stylesheet" type="text/css"/>
+		<link href="toc/css/zTreeStyle/zTreeStyle.css" media="all" rel="stylesheet" type="text/css"/>
+	  <style>
+		pre {
+		    counter-reset: line-numbering;
+		    border: solid 1px #d9d9d9;
+		    border-radius: 0;
+		    background: #fff;
+		    padding: 0;
+		    line-height: 23px;
+		    margin-bottom: 30px;
+		    white-space: pre;
+		    overflow-x: auto;
+		    word-break: inherit;
+		    word-wrap: inherit;
+		}
+
+		pre a::before {
+		  content: counter(line-numbering);
+		  counter-increment: line-numbering;
+		  padding-right: 1em; /* space after numbers */
+		  width: 25px;
+		  text-align: right;
+		  opacity: 0.7;
+		  display: inline-block;
+		  color: #aaa;
+		  background: #eee;
+		  margin-right: 16px;
+		  padding: 2px 10px;
+		  font-size: 13px;
+		  -webkit-touch-callout: none;
+		  -webkit-user-select: none;
+		  -khtml-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		pre a:first-of-type::before {
+		  padding-top: 10px;
+		}
+
+		pre a:last-of-type::before {
+		  padding-bottom: 10px;
+		}
+
+		pre a:only-of-type::before {
+		  padding: 10px;
+		}
+
+		.highlight { background-color: #ffffcc } /* RIGHT */
+		</style>
+  </head>
+  <body>
+	  <div>
+				<div style='width:25%;'>
+						<ul id="tree" class="ztree" style='width:100%'>
+
+						</ul>
+				</div>
+        <div id='readme' style='width:70%;margin-left:20%;'>
+          	<article class='markdown-body'>
+            	<h1 id="jquery-day1">jQuery day1</h1>
+<h2 id="jquery-">jQuery 介绍</h2>
+<p>JavaScript 库：即 library，是一个封装好的特定的集合（方法和函数）。从封装一大堆函数的角度理解库，就是在这个库中，封装了很多预先定义好的函数在里面，比如动画 animate、hide、show，比如获取元素等。</p>
+<p>优点：</p>
+<ol>
+<li>轻量级。核心文件才几十 kb，不会影响页面加载速度。</li>
+<li>跨浏览器兼容，基本兼容了现在主流的浏览器。</li>
+<li>链式编程、隐式迭代。</li>
+<li>对事件、样式、动画支持，大大简化了 DOM 操作。</li>
+<li>支持插件扩展开发。有着丰富的第三方的插件，例如：树形菜单、日期控件、轮播图等。</li>
+<li>免费、开源。</li>
+</ol>
+<h2 id="jquery-">jQuery 基本使用</h2>
+<h3 id="jquery-">jQuery 下载和引入</h3>
+<ul>
+<li>jQuery 的官网地址： <a href="https://jquery.com/，官网即可下载最新版本。">https://jquery.com/，官网即可下载最新版本。</a></li>
+<li>引入 jQuery 文件。</li>
+<li>在文档最末尾插入 script 标签，书写体验代码。</li>
+</ul>
+<h3 id="jquery-">jQuery 入口函数</h3>
+<p>jQuery 入口函数常见有两种</p>
+<pre><code class="lang-js">//* 1（简易）
+$(function () {
+    ...  // 此处是页面 DOM 加载完成的入口
+}) ;
+//* 2 （繁琐）
+$(document).ready(function(){
+   ...  //  此处是页面DOM加载完成的入口
+});
+</code></pre>
+<h3 id="jquery-">jQuery 顶级对象$</h3>
+<ol>
+<li>$是 jQuery 的别称，在代码中可以使用 jQuery 代替，但一般为了方便，通常都直接使用 $ 。</li>
+<li>$是jQuery的顶级对象，相当于原生JavaScript中的 window。把元素利用$包装成 jQuery 对象，就可以调用 jQuery 的方法。</li>
+</ol>
+<h3 id="jquery-dom-">jQuery 对象和 DOM 对象</h3>
+<ol>
+<li>用原生 JS 获取来的对象就是 DOM 对象</li>
+<li>jQuery 方法获取的元素就是 jQuery 对象。</li>
+<li>jQuery 对象本质是： 利用$对 DOM 对象包装后产生的对象（伪数组形式存储）。</li>
+</ol>
+<h3 id="jquery-dom-">jQuery 对象和 DOM 对象转换</h3>
+<pre><code class="lang-js">// 1.DOM对象转换成jQuery对象，方法只有一种
+var box = document.getElementById(&quot;box&quot;);
+var jQueryObject = $(box);
+
+// 2.jQuery 对象转换为 DOM 对象有两种方法：
+//   2.1 jQuery对象[索引值]
+var domObject1 = $(&quot;div&quot;)[0];
+
+//   2.2 jQuery对象.get(索引值)
+var domObject2 = $(&quot;div&quot;).get(0);
+</code></pre>
+<h2 id="jquery-">jQuery 选择器</h2>
+<h3 id="-">基础选择器</h3>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ID 选择器</td>
+<td>$(&quot;#id&quot;)</td>
+<td>选择指定 ID 的元素</td>
+</tr>
+<tr>
+<td>全选选择器</td>
+<td>$(&quot;*&quot;)</td>
+<td>匹配所以元素</td>
+</tr>
+<tr>
+<td>类选择器</td>
+<td>$(&quot;.class&quot;)</td>
+<td>获取同一类 classd 元素</td>
+</tr>
+<tr>
+<td>标签选择器</td>
+<td>$(&quot;div&quot;)</td>
+<td>获取同一类标签的所有元素</td>
+</tr>
+<tr>
+<td>并集选择器</td>
+<td>$(&quot;div,p,li&quot;)</td>
+<td>选择多个元素</td>
+</tr>
+<tr>
+<td>交集选择器</td>
+<td>$(&quot;li.current&quot;)</td>
+<td>交集元素</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">层级选择器</h3>
+<p>层级选择器最常用的两个分别为：后代选择器和子代选择器。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>子代选择器</td>
+<td>$(&quot;ul&gt;li&quot;)</td>
+<td>使用&gt;号，获取亲儿子层级的元素，注意，并不会获取孙子层级的元素</td>
+</tr>
+<tr>
+<td>后代选择器</td>
+<td>$(&quot;ul li&quot;)</td>
+<td>使用空格，代表后代选择器，获取 ul 下所有的 li 元素，包括孙子等</td>
+</tr>
+</tbody>
+</table>
+<p>###.筛选选择器</p>
+<p>筛选选择器，顾名思义就是在所有的选项中选择满足条件的进行筛选选择。常见如下 :</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>:first</td>
+<td>$(&quot;li:first&quot;)</td>
+<td>获取第一个 li</td>
+</tr>
+<tr>
+<td>:last</td>
+<td>$(&quot;li:last&quot;)</td>
+<td>获取最后一个 li 元素</td>
+</tr>
+<tr>
+<td>:eq(index)</td>
+<td>$(&quot;li.eq(2)&quot;)</td>
+<td>获取到的 li 元素中，选择器索引号为 2 的元素，索引号 index 从 0 开始</td>
+</tr>
+<tr>
+<td>:odd</td>
+<td>$(&quot;li:odd&quot;)</td>
+<td>获取到的 li&#39;元素中，选择索引号为奇数的元素</td>
+</tr>
+<tr>
+<td>:even</td>
+<td>$(&quot;li:even&quot;)</td>
+<td>获取到的 li&#39;元素中，选择索引号为偶数的元素</td>
+</tr>
+</tbody>
+</table>
+<p>另: jQuery 中还有一些筛选方法，类似 DOM 中的通过一个节点找另外一个节点，父、子、兄以外有所加强。</p>
+<table>
+<thead>
+<tr>
+<th>语法</th>
+<th>用法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>parent()</td>
+<td>$(&quot;li&quot;).parent();</td>
+<td>查找父级</td>
+</tr>
+<tr>
+<td>children(selector)</td>
+<td>$(&quot;ul&quot;).children(&quot;li&quot;)</td>
+<td>相当于$(&quot;ul&gt;li&quot;)，最接近的亲儿子</td>
+</tr>
+<tr>
+<td>find(selector)</td>
+<td>$(&quot;ul&quot;).find(&quot;li&quot;)</td>
+<td>相当于$(&quot;ul li&quot;)，后代选择器</td>
+</tr>
+<tr>
+<td>siblings(selector)</td>
+<td>$(&quot;.first&quot;).siblings(&quot;li&quot;)</td>
+<td>查找兄弟节点，不包括自身</td>
+</tr>
+<tr>
+<td>nextAll([expr])</td>
+<td>$(&quot;.first&quot;).nextAll(&quot;li&quot;)</td>
+<td>查找当前元素之后所有的同辈元素</td>
+</tr>
+<tr>
+<td>prevtAll([expr])</td>
+<td>$(&quot;.last&quot;).prevtAll(&quot;li&quot;)</td>
+<td>查找当前元素之前的所有同辈元素</td>
+</tr>
+<tr>
+<td>hasClass(class)</td>
+<td>$(&quot;div&quot;).hasClass(&quot;类名&quot;)</td>
+<td>检查当前元素是否包含有某个特定的类，如有返回 true</td>
+</tr>
+<tr>
+<td>eq(index)</td>
+<td>$(&quot;li&quot;).eq(2)</td>
+<td>相当于$(&quot;li.eq(2)&quot;)，index 从 0 开始</td>
+</tr>
+</tbody>
+</table>
+<h3 id="-">.知识铺垫</h3>
+<ol>
+<li>jQuery 设置样式</li>
+</ol>
+<pre><code class="lang-javascript">$(&quot;div&quot;).css(&quot;属性&quot;, &quot;值&quot;);
+</code></pre>
+<ol start="2">
+<li>jQuery 里面的排他思想</li>
+</ol>
+<pre><code class="lang-javascript">// 想要多选一的效果，排他思想：当前元素设置样式，其余的兄弟元素清除样式。
+$(this).css(“color”,”red”);
+$(this).siblings(). css(“color”,””);
+</code></pre>
+<h5 id="-">隐式迭代</h5>
+<pre><code class="lang-javascript">// 遍历内部 DOM 元素（伪数组形式存储）的过程就叫做隐式迭代。
+// 简单理解：给匹配到的所有元素进行循环遍历，执行相应的方法，而不用我们再进行循环，简化我们的操作，方便我们调用。
+$(&quot;div&quot;).hide(); // 页面中所有的div全部隐藏，不用循环操作
+</code></pre>
+<p>#####. 链式编程</p>
+<pre><code class="lang-javascript">// 链式编程是为了节省代码量，看起来更优雅。
+$(this).css(&quot;color&quot;, &quot;red&quot;).sibling().css(&quot;color&quot;, &quot;&quot;);
+</code></pre>
+<h2 id="jquery-">jQuery 样式操作</h2>
+<h3 id="-1">方法 1</h3>
+<pre><code class="lang-javascript">// 1.参数只写属性名，则是返回属性值
+var strColor = $(this).css(&#39;color&#39;);
+
+// 2.  参数是属性名，属性值，逗号分隔，是设置一组样式，属性必须加引号，值如果是数字可以不用跟单位和引号
+$(this).css(&#39;&#39;color&#39;&#39;, &#39;&#39;red&#39;&#39;);
+
+// 3.  参数可以是对象形式，方便设置多组样式。属性名和属性值用冒号隔开， 属性可以不用加引号
+$(this).css({ &quot;color&quot;:&quot;white&quot;,&quot;font-size&quot;:&quot;20px&quot;});
+
+</code></pre>
+<p>###.方法 2</p>
+<pre><code class="lang-javascript">// 1.添加类
+$(&quot;div&quot;).addClass(&quot;current&quot;);
+
+// 2.删除类
+$(&quot;div&quot;).removeClass(&quot;current&quot;);
+
+// 3.切换类
+$(&quot;div&quot;).toggleClass(&quot;current&quot;);
+</code></pre>
+<p>相关案例：tab 栏切换</p>
+<h2 id="jquery-">jQuery 效果</h2>
+<p>jQuery 给我们封装了很多动画效果，最为常见的如下：</p>
+<ul>
+<li>显示隐藏：show() / hide() / toggle() ;</li>
+<li>划入画出：slideDown() / slideUp() / slideToggle() ;</li>
+<li>淡入淡出：fadeIn() / fadeOut() / fadeToggle() / fadeTo() ;</li>
+<li>自定义动画：animate() ;</li>
+</ul>
+<p>###.显示隐藏</p>
+<p>显示隐藏动画，常见有三个方法：show() / hide() / toggle() ;</p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;button&gt;显示&lt;/button&gt;
+  &lt;button&gt;隐藏&lt;/button&gt;
+  &lt;button&gt;切换&lt;/button&gt;
+  &lt;div&gt;&lt;/div&gt;
+  &lt;script&gt;
+    $(function () {
+      $(&quot;button&quot;)
+        .eq(0)
+        .click(function () {
+          $(&quot;div&quot;).show(1000, function () {
+            alert(1);
+          });
+        });
+      $(&quot;button&quot;)
+        .eq(1)
+        .click(function () {
+          $(&quot;div&quot;).hide(1000, function () {
+            alert(1);
+          });
+        });
+      $(&quot;button&quot;)
+        .eq(2)
+        .click(function () {
+          $(&quot;div&quot;).toggle(1000);
+        });
+      // 一般情况下，我们都不加参数直接显示隐藏就可以了
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="-">滑入滑出</h3>
+<p>滑入滑出动画，常见有三个方法：slideDown() / slideUp() / slideToggle() ;</p>
+<p><strong>代码演示</strong></p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;button&gt;下拉滑动&lt;/button&gt;
+  &lt;button&gt;上拉滑动&lt;/button&gt;
+  &lt;button&gt;切换滑动&lt;/button&gt;
+  &lt;div&gt;&lt;/div&gt;
+  &lt;script&gt;
+    $(function () {
+      $(&quot;button&quot;)
+        .eq(0)
+        .click(function () {
+          // 下滑动 slideDown()
+          $(&quot;div&quot;).slideDown();
+        });
+      $(&quot;button&quot;)
+        .eq(1)
+        .click(function () {
+          // 上滑动 slideUp()
+          $(&quot;div&quot;).slideUp(500);
+        });
+      $(&quot;button&quot;)
+        .eq(2)
+        .click(function () {
+          // 滑动切换 slideToggle()
+          $(&quot;div&quot;).slideToggle(500);
+        });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="-">淡入淡出</h3>
+<p>淡入淡出动画，常见有四个方法：fadeIn() / fadeOut() / fadeToggle() / fadeTo() ;</p>
+<p><strong>代码演示</strong></p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;button&gt;淡入效果&lt;/button&gt;
+  &lt;button&gt;淡出效果&lt;/button&gt;
+  &lt;button&gt;淡入淡出切换&lt;/button&gt;
+  &lt;button&gt;修改透明度&lt;/button&gt;
+  &lt;div&gt;&lt;/div&gt;
+  &lt;script&gt;
+    $(function () {
+      $(&quot;button&quot;)
+        .eq(0)
+        .click(function () {
+          // 淡入 fadeIn()
+          $(&quot;div&quot;).fadeIn(1000);
+        });
+      $(&quot;button&quot;)
+        .eq(1)
+        .click(function () {
+          // 淡出 fadeOut()
+          $(&quot;div&quot;).fadeOut(1000);
+        });
+      $(&quot;button&quot;)
+        .eq(2)
+        .click(function () {
+          // 淡入淡出切换 fadeToggle()
+          $(&quot;div&quot;).fadeToggle(1000);
+        });
+      $(&quot;button&quot;)
+        .eq(3)
+        .click(function () {
+          //  修改透明度 fadeTo() 这个速度和透明度要必须写
+          $(&quot;div&quot;).fadeTo(1000, 0.5);
+        });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="-">自定义动画</h3>
+<p>自定义动画非常强大，通过参数的传递可以模拟以上所有动画，方法为：animate() ;</p>
+<p><strong>代码演示</strong></p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;button&gt;动起来&lt;/button&gt;
+  &lt;div&gt;&lt;/div&gt;
+  &lt;script&gt;
+    $(function () {
+      $(&quot;button&quot;).click(function () {
+        $(&quot;div&quot;).animate(
+          {
+            left: 500,
+            top: 300,
+            opacity: 0.4,
+            width: 500,
+          },
+          500
+        );
+      });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h3 id="-">停止动画排队</h3>
+<pre><code>动画或者效果一旦触发就会执行，如果多次触发，就造成多个动画或者效果排队执行。
+
+停止动画排队的方法为：stop() ;
+</code></pre><ul>
+<li><p>stop() 方法用于停止动画或效果。</p>
+</li>
+<li><p>stop() 写到动画或者效果的前面， 相当于停止结束上一次的动画。</p>
+<pre><code>总结: 每次使用动画之前，先调用 stop() ,在调用动画。
+</code></pre></li>
+</ul>
+<h3 id="6-">6.事件切换</h3>
+<p>jQuery 中为我们添加了一个新事件 hover() ; 功能类似 css 中的伪类 :hover 。介绍如下
+<strong>语法</strong></p>
+<pre><code class="lang-javascript">hover([over,]out)     // 其中over和out为两个函数
+</code></pre>
+<ul>
+<li>over:鼠标移到元素上要触发的函数（相当于 mouseenter）</li>
+<li>out:鼠标移出元素要触发的函数（相当于 mouseleave）</li>
+<li>如果只写一个函数，则鼠标经过和离开都会触发它</li>
+</ul>
+<p><strong>hover 事件和停止动画排列案例</strong></p>
+<pre><code class="lang-html">&lt;body&gt;
+  &lt;ul class=&quot;nav&quot;&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;#&quot;&gt;微博&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;私信&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;评论&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;@我&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;#&quot;&gt;微博&lt;/a&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;私信&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;评论&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;&quot;&gt;@我&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;script&gt;
+    $(function () {
+      $(&quot;.nav&gt;li&quot;).hover(function () {
+        // stop 方法必须写到动画的前面
+        $(this).children(&quot;ul&quot;).stop().slideToggle();
+      });
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="-">元素属性&amp;内容操作</h2>
+<p>问：</p>
+<p>1 jQuery操作属性的方法有哪几种?有何区别？</p>
+<p>2 如何获取及修改元素的内容？</p>
+<pre><code class="lang-js">//内置属性
+jquery对象.prop(&#39;id&#39;)  //获取id
+jquery对象.prop(&#39;id&#39;,&#39;myname&#39;) //设置id
+//自定义属性
+jquery对象.attr(&#39;index&#39;)  //获取index属性
+jquery对象.attr(&#39;index&#39;,&#39;myname&#39;) //设置index属性值
+jquery对象.attr(&#39;data-index&#39;,&#39;myname&#39;) //设置data-index属性值
+//缓存数据
+jquery对象.data(&#39;index&#39;) //获取到之前用data方法存入的index属性值或者 data-index
+jquery对象.data(&#39;index&#39;,10)//存入缓存数据index值为10
+
+//获取普通元素内容
+jq对象.html()  //获取到的内容包含标签相当于innerHTML
+jq对象.html(值) //将元素内容设置为某个值
+jq对象.text() //获取到的内容仅包含纯文本 相当于innerText
+jq对象.text(值) //将元素文本内容设置为某个值
+jq对象.val() //获取表单元素的值
+jq对象.val(值) //设置表单元素的值
+</code></pre>
+<p>问：</p>
+<p>1 jQuery对象的each方法有何作用?$(选择器).each(function(i,ele){...}) 中function(i,ele){...}会被执行多少次?i及ele分别指什么?</p>
+<p>2 $(选择器).each和$.each方法有何区别?</p>
+<h2 id="-">元素遍历</h2>
+<pre><code class="lang-js">// jQuery通过each方法遍历元素
+$(&#39;div&#39;).each(function(i,ele){
+    console.log(i,ele)  //分别输出每个div的索引及dom对象
+})
+$(&#39;div&#39;).each(function(i,ele){
+    console.log(i,ele)  //分别输出每个div的索引及dom对象
+    return false //此时回调函数只会被调用一次，return false中止遍历
+})
+$(&#39;div&#39;).each(function(){
+    console.log(this)  //分别输出每个div   each的回调函数中this指当前遍历到的元素
+})
+
+//$.each 为通用工具方法，能遍历元素、数组、对象等,通常用于遍历数据
+$.each([1,2,3],function(i,ele){
+    console.log(i,ele) //分别输出  0 1 , 1 2 , 2 3
+})
+$.each({name:&#39;jim&#39;,age:20},function(i,ele){
+    console.log(i,ele) //分别输出  name jim , age 20
+})
+</code></pre>
+<h2 id="-">元素创建 添加 删除 克隆</h2>
+<pre><code class="lang-js">// 元素创建
+var li = $(&#39;&lt;li&gt;&lt;/li&gt;&#39;)
+// 元素添加
+$(&#39;ul&#39;).append(li)  //追加到内部的最后面
+$(&#39;ul&#39;).append(&#39;&lt;li&gt;新添加的&lt;/li&gt;&#39;)
+$(&#39;ul&#39;).prepend(li) //追加到内部的最前面
+
+$(&#39;li:first&#39;).after(li) //追加到同级的后面
+$(&#39;li:first&#39;).before(li) //追加到同级的前面
+
+// 元素删除
+$(选择器).remove() //删除选择器选中的元素,自杀
+$(选择器).empty()/html(&#39;&#39;) //删除选择器选中的元素的所有内容
+
+// 元素克隆
+$(选择器).clone() //默认会克隆元素的内容
+$(选择器).clone(true) //会克隆元素的内容及事件
+</code></pre>
+<h2 id="-">元素尺寸、位置操作</h2>
+<p>问:</p>
+<p>1 通过哪些方法获取元素的宽度？有何区别？</p>
+<p>2  offset方法和position方法有何区别?</p>
+<pre><code class="lang-js">//尺寸
+jq对象.width() //获取width的值 数字型
+jq对象.width(值) //设置width
+jq对象.innerWidth() //获取padding+width的值 数字型
+jq对象.innerWidth(值) //设置
+jq对象.outerWidth() //获取width+padding+border的值 数字型
+jq对象.outerWidth(值) //设置
+jq对象.outerWidth(true) //获取width+padding+border+margin的值
+//height同理
+
+//位置
+jq对象.offset() //获取相对于文档的偏移量 .left 左偏移量  .top 上偏移量
+jq对象.offset({top:值1,left:值2}) //设置相对于文档的偏移量
+
+jq对象.position()//获取相对于最近外层定位元素的偏移量 .left 左偏移量  .top 上偏移量 只能获取
+
+//滚动距离
+jq对象.scrollTop()  //不传参数时获取垂直滚动距离，传参数时设置
+jq对象.scrollLeft() //不传参数时获取水平滚动距离，传参数时设置
+</code></pre>
+<h2 id="-">重点案例</h2>
+<pre><code class="lang-js">//购物车
+$(function () {
+  // 效果:
+  // 1 全选 全不选 并 改变总计 及 背景色
+  // 2 改变数量（点击加/减、直接编辑）改变小计及总计
+  // 3 删除（单个商品、选中商品、全部商品）移除dom，并改变小计及总计
+  // 全选 全不选，点击checkall时，让小checkbox 跟随checkall选中状态的变化而变化
+  $(&#39;.checkall&#39;).click(function () {
+    $(&#39;.j-checkbox,.checkall&#39;).prop(&#39;checked&#39;, $(this).prop(&#39;checked&#39;));
+    //改变所有商品背景色
+    if ($(this).prop(&#39;checked&#39;)) {
+      $(&#39;.cart-item&#39;).addClass(&#39;check-cart-item&#39;);
+    } else {
+      $(&#39;.cart-item&#39;).removeClass(&#39;check-cart-item&#39;);
+    }
+    // 总计
+    getTotal();
+  });
+  // 点击小checkbox时，若此时所有小checkbox勾选，则checkall勾选，否则checkall不勾选
+  $(&#39;.j-checkbox&#39;).click(function () {
+    if ($(&#39;.j-checkbox:checked&#39;).length == $(&#39;.j-checkbox&#39;).length) {
+      $(&#39;.checkall&#39;).prop(&#39;checked&#39;, true);
+    } else {
+      $(&#39;.checkall&#39;).prop(&#39;checked&#39;, false);
+    }
+    //改变当前商品背景色
+    if ($(this).prop(&#39;checked&#39;)) {
+      $(this).parents(&#39;.cart-item&#39;).addClass(&#39;check-cart-item&#39;);
+    } else {
+      $(this).parents(&#39;.cart-item&#39;).removeClass(&#39;check-cart-item&#39;);
+    }
+    // 总计
+    getTotal();
+  });
+
+  // 商品增减 点击+/- 分别增/减 1
+  $(&#39;.increment&#39;).click(function () {
+    //让input框中数量+1
+    var num = $(this).siblings(&#39;input.itxt&#39;).val();
+    num++;
+    $(this).siblings(&#39;input.itxt&#39;).val(num);
+    //小计
+    getSum(this, num);
+    // 总计
+    getTotal();
+  });
+  $(&#39;.decrement&#39;).click(function () {
+    //让input框中数量-1
+    var num = $(this).siblings(&#39;input.itxt&#39;).val();
+    if (num &lt;= 1) return;
+    num--;
+    $(this).siblings(&#39;input.itxt&#39;).val(num);
+    // 小计
+    getSum(this, num);
+    // 总计
+    getTotal();
+  });
+  // 直接在input框中修改商品数量
+  $(&#39;input.itxt&#39;).change(function () {
+    var num = $(this).val();
+    if (!num || isNaN(num) || num &lt; 1) {
+      // 若填写非法数据，还原为1
+      num = 1;
+      $(this).val(num);
+    }
+    //小计
+    getSum(this, num);
+    // 总计
+    getTotal();
+  });
+
+  //   删除单个商品
+  $(&#39;.p-action a&#39;).click(function () {
+    $(this).parents(&#39;.cart-item&#39;).remove();
+    getTotal();
+  });
+  //   删除选中商品
+  $(&#39;.remove-batch&#39;).click(function () {
+    $(&#39;.j-checkbox:checked&#39;).parents(&#39;.cart-item&#39;).remove();
+    getTotal();
+  });
+  // 清空商品
+  $(&#39;.clear-all&#39;).click(function () {
+    $(&#39;.cart-item&#39;).remove();
+    getTotal();
+  });
+
+  // 小计
+  function getSum(obj, num) {
+    // 获取对应商品的价格
+    var price = $(obj)
+      .parents(&#39;.cart-item&#39;)
+      .children(&#39;.p-price&#39;)
+      .html()
+      .substr(1);
+    // 根据新数量计算出新的小计
+    var sum = price * num;
+    sum = &#39;￥&#39; + sum.toFixed(2);
+    // 将新的小计 放在对应.p-sum中
+    $(obj).parents(&#39;.cart-item&#39;).children(&#39;.p-sum&#39;).html(sum);
+  }
+  getTotal();
+  // 总计
+  function getTotal() {
+    // 总金额
+    var amount = 0;
+    // 总数量
+    var count = 0;
+    // 计算总数量、总金额
+    $(&#39;.j-checkbox:checked&#39;).each(function (i, ele) {
+      var num = $(this).parents(&#39;.cart-item&#39;).find(&#39;.itxt&#39;).val();
+      count += Number(num);
+      var p =
+        $(this).parents(&#39;.p-checkbox&#39;).siblings(&#39;.p-sum&#39;).text().substr(1) - 0;
+      //   console.log(p);
+      amount += p;
+    });
+    // 更新总数量、总金额
+    $(&#39;.amount-sum em&#39;).html(count);
+    $(&#39;.price-sum em&#39;).html(&#39;￥&#39; + amount.toFixed(2));
+  }
+});
+
+</code></pre>
+<pre><code class="lang-js">// 电梯导航
+$(function () {
+  //效果:
+  // 1 显示隐藏 当滚动条拖动到推荐模块到达可视区顶部时显示，否则隐藏
+  // 2 点击 电梯导航上的某个 li ，页面滚动到对应的楼层区，且当前li高亮，其他li取消高亮
+  // 3 拖动滚动条时，拖动到对应的楼层时，高亮切换到对应的li
+
+  //   显示隐藏
+  var top = $(&#39;.recommend&#39;).offset().top;
+  // 标记当前是否处于点击滚动状态
+  var flag = false;
+  toggleFixedTool();
+  $(window).scroll(function () {
+    toggleFixedTool();
+    // 拖动滚动条时 到达某楼层区时，对应的li高亮
+    if (!flag) {
+      $(&#39;.floor .w&#39;).each(function (i, ele) {
+        console.log($(document).scrollTop(), $(ele).offset().top, i);
+        //遍历所有楼层，找出上偏移量小于文档滚动距离的的楼层，满足条件的索引最大的楼层即为当前楼层，获得其索引，给对应li加上current类
+        if ($(document).scrollTop() &gt;= $(ele).offset().top - 5) {
+          $(&#39;.fixedtool li&#39;).eq(i).addClass(&#39;current&#39;).siblings().removeClass();
+        }
+      });
+    }
+  });
+
+  //   点击li 滚动到对应楼层,让当前li高亮
+  $(&#39;.fixedtool li&#39;).click(function () {
+    flag = true;
+    //获取当前li的索引，找到对应的楼层，获取它的上偏移量
+    var scrollTop = $(&#39;.floor .w&#39;).eq($(this).index()).offset().top;
+    //让文档往上滚动 该偏移量
+    $(&#39;html,body&#39;)
+      .stop()
+      .animate(
+        {
+          scrollTop: scrollTop,
+        },
+        function () {
+          flag = false;
+        }
+      );
+    // 高亮切换
+    $(this).addClass(&#39;current&#39;).siblings().removeClass();
+  });
+
+  function toggleFixedTool() {
+    if ($(document).scrollTop() &gt;= top) {
+      $(&#39;.fixedtool&#39;).stop().fadeIn();
+    } else {
+      $(&#39;.fixedtool&#39;).stop().fadeOut();
+    }
+  }
+});
+
+</code></pre>
+<blockquote>
+<p>主要内容:</p>
+<p>jq事件  *</p>
+<p>jq其他方法-多库共存、对象拷贝</p>
+<p>jq插件使用</p>
+<p>重点案例:todolist  *</p>
+</blockquote>
+<h2 id="jq-">jq事件</h2>
+<pre><code class="lang-js">//事件绑定
+//方式1
+jq对象.事件名(事件处理函数)
+//方式2 on
+jq对象.on(事件名,事件处理函数)
+jq对象.on({事件名1:处理函数1,事件名2:处理函数2,...})
+jq对象.on(&#39;事件名1 事件名2&#39;,处理函数)
+//事件代理方式，利用该方式可以为动态添加的元素绑定事件，原理:事件冒泡
+外层jq对象.on(&#39;事件名&#39;,后代元素选择器,处理函数)
+
+//事件解绑
+jq对象.off() //全部事件解绑
+jq对象.off(事件名) //某个事件解绑
+jq对象.off(事件名,后代元素选择器) //针对事件代理的解绑
+jq对象.one(事件名,处理函数) //仅绑定一次
+
+//自动触发
+//方式1
+jq对象.事件名()
+//方式2
+jq对象.trigger(事件名) //方式1/2等效
+//方式3
+jq对象.triggerHandler(事件名) //跟方式1/2区别为，不会触发默认行为
+
+//jq事件对象 和 原生事件对象一致，都是通过给事件处理函数设置形参来获取，利用事件对象 取消默认行为、阻止冒泡用法和原生js完全一致
+</code></pre>
+<h2 id="jq-">jq其他方法</h2>
+<pre><code class="lang-js">// 对象拷贝
+var o1 = {name:&#39;Jim&#39;,age:20,study:{score:10}},o2={},o3={};
+$.extend(o2,o1); //浅拷贝 对于属性值仍为对象的数据只复制对应的内存地址
+console.log(o2) //和o1完全一样
+o2.name=&#39;Ken&#39;;
+console.log(o1.name) //Jim 不会受o2影响
+o2.study.score = 20;
+console.log(o1.study.score)//20 受o2影响，因为o2.study和o1.study指向同一块内存
+$.extend(true,o3,o1); //深拷贝 完全复制
+o3.study.score =30;
+console.log(o1.study.score) //20 不受o3影响
+
+// 多库共存
+若$被占用 可用jQuery代替
+var x=jQuery.noconflict()
+</code></pre>
+<h2 id="jq-">jq插件</h2>
+<ul>
+<li>瀑布流</li>
+<li>懒加载</li>
+<li>bootstrap系列插件-模态框、tab栏切换、导航条、分页...</li>
+</ul>
+<h2 id="-todolist">重点案例-todolist</h2>
+<pre><code class="lang-js">$(function () {
+  //效果:
+  // 1 页面打开时显示所有任务数据
+  // 2 在输入框中输入新任务按回车键，将新任务显示列表的最上方
+  // 3 点击某条任务中的 - ,删除该任务
+  // 4 勾选某条任务左边的 checkbox，则该任务移动至已完成任务列表中,反之取消勾选某条已完成任务左边的checkbox,则该任务移回 未完成任务列表
+  // 5 未完成及已完成任务的总数量显示在对应位置
+  // 6 以上所有操作的效果，页面刷新或关闭重新打开后，仍保持。
+  //   思路：
+  // 1 所有数据都要存到本地存储中(localStorage)
+  // 2 所有操作都是先改变本地存储中的数据，然后根据最新的数据渲染dom
+  // 3 数据以[{title:任务名,done:false},{title:任务名,done:true}]格式保存，约定数据在本地存储中的键为mytodo
+  render();
+  $(&#39;#title&#39;).keyup(function (e) {
+    if (e.keyCode == 13) {
+      var task = $(this).val().trim();
+      if (task !== &#39;&#39;) {
+        //获取数据
+        var data = getData();
+        //将新任务追加到数组尾部
+        data.push({ title: task, done: false });
+        //存储数据
+        saveData(data);
+        //渲染
+        render();
+        //清空输入框
+        $(this).val(&#39;&#39;);
+      }
+    }
+  });
+
+  //   切换任务完成状态
+  $(&#39;#todolist,#donelist&#39;).on(&#39;click&#39;, &#39;input&#39;, function () {
+    //获取数据
+    var data = getData();
+    //改变数据
+    var i = $(this).siblings(&#39;a&#39;).attr(&#39;index&#39;); //获取当前任务在数组中的下标
+    data[i].done = !data[i].done;
+    //存储数据
+    saveData(data);
+    //渲染dom
+    render();
+  });
+
+  //   删除
+  $(&#39;#todolist,#donelist&#39;).on(&#39;click&#39;, &#39;a&#39;, function () {
+    //获取当前数据
+    var data = getData();
+    //删除其中对应的当前任务
+    var i = $(this).attr(&#39;index&#39;); //获取当前任务在数组中的下标
+    data.splice(i, 1);
+    //存储最新数据
+    saveData(data);
+    //渲染
+    render();
+  });
+  // 根据本地存储数据，渲染dom
+  function render() {
+    //获取数据
+    var data = getData();
+    //清空ul/ol
+    $(&#39;#todolist,#donelist&#39;).empty();
+    //根据数据渲染
+    $.each(data, function (i, ele) {
+      if (ele.done) {
+        // 已完成任务
+        $(&#39;#donelist&#39;).prepend(
+          `&lt;li&gt;&lt;input checked type=&quot;checkbox&quot;/&gt;&lt;p&gt;${ele.title}&lt;/p&gt;&lt;a href=&quot;javascript:;&quot; index=&quot;${i}&quot;&gt;&lt;/a&gt;&lt;/li&gt;`
+        );
+      } else {
+        // 未完成任务
+        $(&#39;#todolist&#39;).prepend(
+          `&lt;li&gt;&lt;input type=&quot;checkbox&quot;/&gt;&lt;p&gt;${ele.title}&lt;/p&gt;&lt;a href=&quot;javascript:;&quot;  index=&quot;${i}&quot;&gt;&lt;/a&gt;&lt;/li&gt;`
+        );
+      }
+    });
+    //统计未完成及已完成任务的数量并显示
+    $(&#39;#todocount&#39;).html($(&#39;#todolist&#39;).children().length);
+    $(&#39;#donecount&#39;).html($(&#39;#donelist&#39;).children().length);
+  }
+  // 获取本地存储中的数据
+  function getData() {
+    var data = localStorage.getItem(&#39;mytodo&#39;);
+    if (data !== null) {
+      return JSON.parse(data);
+    } else {
+      return [];
+    }
+  }
+  // 存储数据
+  function saveData(data) {
+    localStorage.setItem(&#39;mytodo&#39;, JSON.stringify(data));
+  }
+});
+</code></pre>
+
+          	</article>
+        </div>
+		</div>
+  </body>
+</html>
+<script type="text/javascript" src="toc/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="toc/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="toc/js/ztree_toc.js"></script>
+<script type="text/javascript" src="toc_conf.js"></script>
+
+<SCRIPT type="text/javascript" >
+<!--
+$(document).ready(function(){
+    var css_conf = eval(markdown_panel_style);
+    $('#readme').css(css_conf)
+    
+    var conf = eval(jquery_ztree_toc_opts);
+		$('#tree').ztree_toc(conf);
+});
+//-->
+</SCRIPT>
